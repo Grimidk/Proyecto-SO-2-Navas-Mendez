@@ -17,7 +17,6 @@ public class Fighter {
     private boolean attackStat;
     private boolean speedStat;
     private boolean skillStat;
-    private int qualityCounter;
     private int quality;
 
     public Fighter(int id, String saga, String name) {
@@ -29,35 +28,36 @@ public class Fighter {
         this.attackStat = (Math.random() * 100) >= 50;
         this.speedStat = (Math.random() * 100) >= 40;
         this.skillStat = (Math.random() * 100) >= 60;
-        this.makeQuality();
+        this.setQuality();
     }
     
-    public final void makeQuality(){
-        if(this.healthStat) {this.qualityCounter += 1;}
-        if(this.attackStat) {this.qualityCounter += 1;}
-        if(this.speedStat) {this.qualityCounter += 1;}
-        if(this.skillStat) {this.qualityCounter += 1;}
+    public final void setQuality(){
+        int qualityCounter = 0;
+        if(this.healthStat) {qualityCounter += 1;}
+        if(this.attackStat) {qualityCounter += 1;}
+        if(this.speedStat) {qualityCounter += 1;}
+        if(this.skillStat) {qualityCounter += 1;}
 
-        if(this.qualityCounter >= 4) {this.quality = 3;}
-        else if(this.qualityCounter >= 2) {this.quality = 2;}
+        if(qualityCounter >= 4) {this.quality = 3;}
+        else if(qualityCounter >= 2) {this.quality = 2;}
         else {this.quality = 1;}
     }
     
     public final void evolve(){
         if(!this.healthStat) {
             this.healthStat = true;
-            this.makeQuality();
+            this.setQuality();
         } else if(!this.attackStat) {
             this.attackStat = true;
-            this.makeQuality();
+            this.setQuality();
         } else if(!this.speedStat) {
             this.speedStat = true;
-            this.makeQuality();
+            this.setQuality();
         } else if(!this.skillStat) {
             this.skillStat = true;
-            this.makeQuality();
+            this.setQuality();
         } else {
-            this.makeQuality();
+            this.setQuality();
         }
     }
     
@@ -128,6 +128,5 @@ public class Fighter {
     public void setSkillStat(boolean skillStat) {
         this.skillStat = skillStat;
     }
-    
     
 }

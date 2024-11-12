@@ -4,6 +4,7 @@
  */
 package projectClasses;
 import projectClasses.Fighter;
+import auxClasses.LinkedList;
 
 /**
  *
@@ -14,13 +15,16 @@ public class Processor {
     private int probFight;
     private int probTie;
     private int probSkip;
-//    private LinkedList winners;
+    private LinkedList winnersL;
+    private LinkedList winnersR;
 
     public Processor(int duration) {
         this.duration = duration;
         this.probFight = 40;
         this.probTie = 27;
         this.probSkip = 33;
+        this.winnersL = new LinkedList();
+        this.winnersR = new LinkedList();
     }
 
     public int getDuration() {
@@ -54,27 +58,86 @@ public class Processor {
     public void setProbSkip(int probSkip) {
         this.probSkip = probSkip;
     }
+
+    public LinkedList getWinnersL() {
+        return winnersL;
+    }
+
+    public void setWinnersL(LinkedList winners) {
+        this.winnersL = winners;
+    }
     
-    public final void determinate(Fighter fighter1, Fighter fighter2){
+    public LinkedList getWinnersR() {
+        return winnersR;
+    }
+
+    public void setWinnersR(LinkedList winners) {
+        this.winnersR = winners;
+    }
+    
+    public String determinate(Fighter fighterL, Fighter fighterR){
+        String result = null;
         double rand = Math.random() * 100;
         if (rand >= this.probFight + this.probTie) {
-            this.skip(fighter1, fighter2);
+            result = this.skip(fighterL, fighterR);
         } else if (rand <= this.probFight) {
-            this.fight(fighter1, fighter2);
+            result = this.fight(fighterL, fighterR);
         } else {
-            this.tie(fighter1, fighter2);
+            result = this.tie(fighterL, fighterR);
+        }
+        return result; 
+    }
+    
+    public String fight(Fighter fighterL,Fighter fighterR){
+        int qualityDiff = fighterL.getQuality() - fighterR.getQuality();;
+        int chance = (int) (Math.random() * 100);
+        if (qualityDiff == 2) {
+            if (chance <= 90){
+                this.winnersL.addLast(fighterL);
+                return "left";
+            } else {
+                this.winnersR.addLast(fighterR);
+                return "right";}
+            
+        } else if (qualityDiff == 1) {
+             if (chance <= 70){
+                this.winnersL.addLast(fighterL);
+                return "left";
+            } else {
+                this.winnersR.addLast(fighterR);
+                return "right";}
+             
+        } else if (qualityDiff == -1) {
+             if (chance <= 30){
+                this.winnersL.addLast(fighterL);
+                return "left";
+            } else {
+                this.winnersR.addLast(fighterR);
+                return "right";}
+             
+        } else if (qualityDiff == -2) {
+             if (chance <= 10){
+                this.winnersL.addLast(fighterL);
+                return "left";
+            } else {
+                this.winnersR.addLast(fighterR);
+                return "right";}
+             
+        } else {
+             if (chance <= 50){
+                this.winnersL.addLast(fighterL);
+                return "left";
+            } else {
+                this.winnersR.addLast(fighterR);
+                return "right";}
         }
     }
     
-    public final void fight(Fighter fighter1,Fighter fighter2){
-        
+    public String skip(Fighter fighterL,Fighter fighterR){
+        return "skip";
     }
     
-    public final void skip(Fighter fighter1,Fighter fighter2){
-        
-    }
-    
-    public final void tie(Fighter fighter1,Fighter fighter2){
-        
+    public String tie(Fighter fighterL,Fighter fighterR){
+        return "tie";
     }
 }
