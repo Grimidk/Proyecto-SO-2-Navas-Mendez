@@ -18,8 +18,8 @@ public class Processor {
     private LinkedList winnersL;
     private LinkedList winnersR;
 
-    public Processor(int duration) {
-        this.duration = duration;
+    public Processor() {
+        this.duration = 10;
         this.probFight = 40;
         this.probTie = 27;
         this.probSkip = 33;

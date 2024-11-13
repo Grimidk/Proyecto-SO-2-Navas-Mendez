@@ -14,10 +14,13 @@ import auxClasses.Queue;
 public class Administrator {
     private Processor processor;
     private int cycles;
+    private int cycleCounter;
     private int probCreate;
     private int fighterCounter;
     private String sagaR;
     private String sagaL;
+    private String[] charactersR;
+    private String[] charactersL;
     private Queue queueHighRight;
     private Queue queueMidRight;
     private Queue queueLowRight;
@@ -30,10 +33,13 @@ public class Administrator {
     public Administrator(Processor processor) {
         this.processor = processor;
         this.cycles = 2;
+        this.cycleCounter = 0;
         this.probCreate = 80;
         this.fighterCounter = 0;
         this.sagaR = "Star Wars";
         this.sagaL = "Star Trek";
+        this.charactersR = new String[] {"Darth Vader", "Ben Kenobi", "Han Solo", "Chewbaca", "Princess Leia", "Master Yoda", "R2-D2", "C3PO", "Luke Skywalker", "Emperor Palpatine"};
+        this.charactersL = new String[] {"Ambassador Spock", "Admiral Picard", "Officer Worf", "Captain Kirk", "Lieutenant Data", "Vice Admiral Janeway", "Dr. McCoy", "Commander Sisko", "Fleet Captain Pike", "Chief Engineer La Forge"};
         this.queueHighRight = new Queue();
         this.queueMidRight = new Queue();
         this.queueLowRight = new Queue();
@@ -60,6 +66,14 @@ public class Administrator {
         this.cycles = cycles;
     }
 
+    public int getCycleCounter() {
+        return cycleCounter;
+    }
+
+    public void setCycleCounter(int cycleCounter) {
+        this.cycleCounter = cycleCounter;
+    }
+
     public int getProbCreate() {
         return probCreate;
     }
@@ -75,6 +89,39 @@ public class Administrator {
     public void setFighterCounter(int fighterCounter) {
         this.fighterCounter = fighterCounter;
     }
+
+    public String getSagaR() {
+        return sagaR;
+    }
+
+    public void setSagaR(String sagaR) {
+        this.sagaR = sagaR;
+    }
+
+    public String getSagaL() {
+        return sagaL;
+    }
+
+    public void setSagaL(String sagaL) {
+        this.sagaL = sagaL;
+    }
+
+    public String[] getCharactersR() {
+        return charactersR;
+    }
+
+    public void setCharactersR(String[] charactersR) {
+        this.charactersR = charactersR;
+    }
+
+    public String[] getCharactersL() {
+        return charactersL;
+    }
+
+    public void setCharactersL(String[] charactersL) {
+        this.charactersL = charactersL;
+    }
+    
 
     public Queue getQueueHighRight() {
         return queueHighRight;
@@ -140,10 +187,22 @@ public class Administrator {
         this.queueAuxLeft = queueAuxLeft;
     }
     
-    public void createFighters() {
+    
+    public Fighter[] createFighters() {
         int count = this.fighterCounter;
-//        Fighter figherL = new Fighter(count, sagaL,);
-//        Fighter figherR = new Fighter(count + 1, sagaR,);
+        Fighter fighterL = new Fighter(count, sagaL,charactersL[(int) (Math.random() * 10)]);
+        Fighter fighterR = new Fighter(count + 1, sagaR,charactersL[(int) (Math.random() * 10)]);
+        return new Fighter[] {fighterL, fighterR};
+    }
+    
+    public void initRun() {
+        for (int i = 0; i < 10; i++) {
+            this.createFighters();
+        }
+    }
+    
+    public void runCycle(){
+        
     }
     
     public void adminFight(Fighter fighterL,Fighter fighterR) {
