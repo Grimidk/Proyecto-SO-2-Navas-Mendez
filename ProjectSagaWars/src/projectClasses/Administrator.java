@@ -15,6 +15,9 @@ public class Administrator {
     private Processor processor;
     private int cycles;
     private int probCreate;
+    private int fighterCounter;
+    private String sagaR;
+    private String sagaL;
     private Queue queueHighRight;
     private Queue queueMidRight;
     private Queue queueLowRight;
@@ -28,6 +31,9 @@ public class Administrator {
         this.processor = processor;
         this.cycles = 2;
         this.probCreate = 80;
+        this.fighterCounter = 0;
+        this.sagaR = "Star Wars";
+        this.sagaL = "Star Trek";
         this.queueHighRight = new Queue();
         this.queueMidRight = new Queue();
         this.queueLowRight = new Queue();
@@ -60,6 +66,14 @@ public class Administrator {
 
     public void setProbCreate(int probCreate) {
         this.probCreate = probCreate;
+    }
+
+    public int getFighterCounter() {
+        return fighterCounter;
+    }
+
+    public void setFighterCounter(int fighterCounter) {
+        this.fighterCounter = fighterCounter;
     }
 
     public Queue getQueueHighRight() {
@@ -126,8 +140,10 @@ public class Administrator {
         this.queueAuxLeft = queueAuxLeft;
     }
     
-    public void createFighter() {
-        
+    public void createFighters() {
+        int count = this.fighterCounter;
+//        Fighter figherL = new Fighter(count, sagaL,);
+//        Fighter figherR = new Fighter(count + 1, sagaR,);
     }
     
     public void adminFight(Fighter fighterL,Fighter fighterR) {
