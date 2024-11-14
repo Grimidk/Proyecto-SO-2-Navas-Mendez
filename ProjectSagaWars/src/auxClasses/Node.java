@@ -2,7 +2,7 @@ package auxClasses;
 
 /**
  *
- * @author vadau
+ * @author svet
  * @param <T>
  */
 public class Node<T>{

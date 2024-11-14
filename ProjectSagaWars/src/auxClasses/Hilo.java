@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package auxClasses;
-
 import java.util.concurrent.Semaphore;
 
 /**
@@ -16,9 +15,9 @@ public class Hilo extends Thread{
     private Semaphore sema;
     private boolean killSwitch;
     
-    public Hilo (int permits){
-//        this.delay = (simu.getDuration()*1000)/48;
-        this.sema = new Semaphore(permits);
+    public Hilo (int delay){
+        this.delay = delay;
+        this.sema = new Semaphore(1);
         this.killSwitch = false;
     }
     public float getDelay() {

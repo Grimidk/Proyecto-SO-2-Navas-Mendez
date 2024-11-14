@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package projectClasses;
+import auxClasses.Hilo;
 
 /**
  *
  * @author juanmendezl
  */
 public class Fighter {
+    private Hilo thread;
     private int id;
     private String saga;
     private String name;
@@ -19,7 +21,8 @@ public class Fighter {
     private boolean skillStat;
     private int quality;
 
-    public Fighter(int id, String saga, String name) {
+    public Fighter(int duration, int id, String saga, String name) {
+        this.thread = new Hilo(duration);
         this.id = id;
         this.saga = saga;
         this.name = name;
@@ -29,6 +32,14 @@ public class Fighter {
         this.speedStat = (Math.random() * 100) >= 40;
         this.skillStat = (Math.random() * 100) >= 60;
         this.setQuality();
+    }
+
+    public Hilo getThread() {
+        return thread;
+    }
+
+    public void setThread(Hilo thread) {
+        this.thread = thread;
     }
     
     public final void setQuality(){

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package projectClasses;
+import auxClasses.Node;
 import projectClasses.Processor;
 import projectClasses.Fighter;
 import auxClasses.Queue;
@@ -187,25 +188,86 @@ public class Administrator {
         this.queueAuxLeft = queueAuxLeft;
     }
     
-    
-    public Fighter[] createFighters() {
+    public void createFighters() {
         int count = this.fighterCounter;
-        Fighter fighterL = new Fighter(count, sagaL,charactersL[(int) (Math.random() * 10)]);
-        Fighter fighterR = new Fighter(count + 1, sagaR,charactersL[(int) (Math.random() * 10)]);
-        return new Fighter[] {fighterL, fighterR};
+        Fighter fighterL = new Fighter(this.processor.getDuration(),count, sagaL, charactersL[(int) (Math.random() * 10)]);
+        Node nodeL = new Node(fighterL);
+        Fighter fighterR = new Fighter(this.processor.getDuration(),(count + 1), sagaR, charactersL[(int) (Math.random() * 10)]);
+        Node nodeR = new Node(fighterR);
+        if (fighterL.getQuality() == 3) {
+            this.queueHighLeft.inqueue(nodeL);
+        } else if (fighterL.getQuality() == 2){
+            this.queueMidLeft.inqueue(nodeL);
+        } else {
+            this.queueLowLeft.inqueue(nodeL);
+        }
+        if (fighterR.getQuality() == 3) {
+            this.queueHighRight.inqueue(nodeR);
+        } else if (fighterL.getQuality() == 2){
+            this.queueMidRight.inqueue(nodeR);
+        } else {
+            this.queueLowRight.inqueue(nodeR);
+        }
     }
     
-    public void initRun() {
+    public void initFighters() {
         for (int i = 0; i < 10; i++) {
             this.createFighters();
         }
     }
     
-    public void runCycle(){
+    public void adminFight() {
+        Fighter fighterL = null;
+        Fighter fighterR = null;
         
+        if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
+            fighterL = (Fighter) queueHighLeft.getFirst().getValue();
+            queueHighLeft.dequeue();
+            fighterR = (Fighter) queueHighRight.getFirst().getValue();
+            queueHighRight.dequeue();
+        } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
+            fighterL = (Fighter) queueMidLeft.getFirst().getValue();
+            queueMidLeft.dequeue();
+            fighterR = (Fighter) queueMidRight.getFirst().getValue();
+            queueMidRight.dequeue();
+        } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
+            fighterL = (Fighter) queueLowLeft.getFirst().getValue();
+            queueLowLeft.dequeue();
+            fighterR = (Fighter) queueLowRight.getFirst().getValue();
+            queueLowRight.dequeue();
+        } else if (!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+            fighterL = (Fighter) queueAuxLeft.getFirst().getValue();
+            queueAuxLeft.dequeue();
+            fighterR = (Fighter) queueAuxRight.getFirst().getValue();
+            queueAuxRight.dequeue();
+        } else {
+            this.initFighters();
+            this.adminFight();
+        }
+        
+        String result = this.processor.determinate(fighterL, fighterR);
+        if (result.equals("tie")) {
+            Node nodeL = new Node(fighterL);
+            queueHighLeft.inqueue(nodeL);
+            Node nodeR = new Node(fighterR);
+            queueHighRight.inqueue(nodeR);
+        } else if (result.equals("skip")){
+            Node nodeL = new Node(fighterL);
+            queueAuxLeft.inqueue(nodeL);
+            Node nodeR = new Node(fighterR);
+            queueAuxRight.inqueue(nodeR);
+        } else {
+
+        }
     }
     
-    public void adminFight(Fighter fighterL,Fighter fighterR) {
-        String result = this.processor.determinate(fighterL, fighterR);
+    public void adminRun(){
+        adminFight();
+        if (cycleCounter%cycles == 0) {
+            if (Math.random() * 100 <= probCreate) {
+                createFighters();
+            }
+        }
+        cycles += 1;
     }
 }
