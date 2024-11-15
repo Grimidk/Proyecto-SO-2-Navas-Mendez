@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package projectClasses;
-import projectClasses.Fighter;
 import auxClasses.LinkedList;
 
 /**
@@ -89,7 +88,7 @@ public class Processor {
     }
     
     public String fight(Fighter fighterL,Fighter fighterR){
-        int qualityDiff = fighterL.getQuality() - fighterR.getQuality();;
+        int qualityDiff = fighterL.getQuality() - fighterR.getQuality();
         int chance = (int) (Math.random() * 100);
         if (qualityDiff == 2) {
             if (chance <= 90){

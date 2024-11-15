@@ -4,6 +4,7 @@
  */
 package auxClasses;
 import java.util.concurrent.Semaphore;
+import projectClasses.Administrator;
 
 /**
  *
@@ -14,11 +15,13 @@ public class Hilo extends Thread{
     private float delay;
     private Semaphore sema;
     private boolean killSwitch;
+    private Administrator admin;
     
-    public Hilo (int delay){
+    public Hilo (int delay, Administrator admin){
         this.delay = delay;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
+        this.admin = admin;
     }
     public float getDelay() {
         return delay;
@@ -46,14 +49,15 @@ public class Hilo extends Thread{
     
     @Override
     public void run(){
-        while (!this.killSwitch){
+        while (!killSwitch){
             
             try{
-                this.sema.acquire();
+                sema.acquire();
                 
+                admin.adminRun();
                 sleep((long) (delay));
                 
-                this.sema.release();
+                sema.release();
                 sleep((long) (delay));
                 
             }catch (InterruptedException e){

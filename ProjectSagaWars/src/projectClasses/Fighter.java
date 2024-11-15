@@ -3,18 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package projectClasses;
-import auxClasses.Hilo;
 
 /**
  *
  * @author juanmendezl
  */
 public class Fighter {
-    private Hilo thread;
     private int id;
     private String saga;
     private String name;
     private int waitCounter;
+    private int waitLimit;
     private boolean healthStat;
     private boolean attackStat;
     private boolean speedStat;
@@ -22,24 +21,16 @@ public class Fighter {
     private int quality;
 
     public Fighter(int duration, int id, String saga, String name) {
-        this.thread = new Hilo(duration);
         this.id = id;
         this.saga = saga;
         this.name = name;
         this.waitCounter = 0;
+        this.waitLimit = 8;
         this.healthStat = (Math.random() * 100) >= 70;
         this.attackStat = (Math.random() * 100) >= 50;
         this.speedStat = (Math.random() * 100) >= 40;
         this.skillStat = (Math.random() * 100) >= 60;
         this.setQuality();
-    }
-
-    public Hilo getThread() {
-        return thread;
-    }
-
-    public void setThread(Hilo thread) {
-        this.thread = thread;
     }
     
     public final void setQuality(){
@@ -108,6 +99,14 @@ public class Fighter {
         this.waitCounter = waitCounter;
     }
 
+    public int getWaitLimit() {
+        return waitLimit;
+    }
+
+    public void setWaitLimit(int waitLimit) {
+        this.waitLimit = waitLimit;
+    }
+    
     public boolean isHealthStat() {
         return healthStat;
     }

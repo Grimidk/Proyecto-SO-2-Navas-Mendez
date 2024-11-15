@@ -4,15 +4,13 @@
  */
 package projectClasses;
 import auxClasses.Node;
-import projectClasses.Processor;
-import projectClasses.Fighter;
 import auxClasses.Queue;
 
 /**
  *
  * @author juanmendezl
  */
-public class Administrator {
+public class Administrator{
     private Processor processor;
     private int cycles;
     private int cycleCounter;
@@ -30,6 +28,7 @@ public class Administrator {
     private Queue queueMidLeft;
     private Queue queueLowLeft;
     private Queue queueAuxLeft;
+    private int probReinforce;
 
     public Administrator(Processor processor) {
         this.processor = processor;
@@ -49,8 +48,9 @@ public class Administrator {
         this.queueMidLeft = new Queue();
         this.queueLowLeft = new Queue();
         this.queueAuxLeft = new Queue();
+        this.probReinforce = 80;
     }
-
+    
     public Processor getProcessor() {
         return processor;
     }
@@ -187,6 +187,14 @@ public class Administrator {
     public void setQueueAuxLeft(Queue queueAuxLeft) {
         this.queueAuxLeft = queueAuxLeft;
     }
+
+    public int getProbReinforce() {
+        return probReinforce;
+    }
+
+    public void setProbReinforce(int probReinforce) {
+        this.probReinforce = probReinforce;
+    }
     
     public void createFighters() {
         int count = this.fighterCounter;
@@ -220,31 +228,39 @@ public class Administrator {
         Fighter fighterL = null;
         Fighter fighterR = null;
         
-        if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
-            fighterL = (Fighter) queueHighLeft.getFirst().getValue();
-            queueHighLeft.dequeue();
-            fighterR = (Fighter) queueHighRight.getFirst().getValue();
-            queueHighRight.dequeue();
-        } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
-            fighterL = (Fighter) queueMidLeft.getFirst().getValue();
-            queueMidLeft.dequeue();
-            fighterR = (Fighter) queueMidRight.getFirst().getValue();
-            queueMidRight.dequeue();
-        } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
-            fighterL = (Fighter) queueLowLeft.getFirst().getValue();
-            queueLowLeft.dequeue();
-            fighterR = (Fighter) queueLowRight.getFirst().getValue();
-            queueLowRight.dequeue();
-        } else if (!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+        if (Math.random() * 100 <= probReinforce) {
             fighterL = (Fighter) queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
             fighterR = (Fighter) queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else {
-            this.initFighters();
-            this.adminFight();
-        }
         
+            if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
+                fighterL = (Fighter) queueHighLeft.getFirst().getValue();
+                queueHighLeft.dequeue();
+                fighterR = (Fighter) queueHighRight.getFirst().getValue();
+                queueHighRight.dequeue();
+            } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
+                fighterL = (Fighter) queueMidLeft.getFirst().getValue();
+                queueMidLeft.dequeue();
+                fighterR = (Fighter) queueMidRight.getFirst().getValue();
+                queueMidRight.dequeue();
+            } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
+                fighterL = (Fighter) queueLowLeft.getFirst().getValue();
+                queueLowLeft.dequeue();
+                fighterR = (Fighter) queueLowRight.getFirst().getValue();
+                queueLowRight.dequeue();
+            } else if (!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+                fighterL = (Fighter) queueAuxLeft.getFirst().getValue();
+                queueAuxLeft.dequeue();
+                fighterR = (Fighter) queueAuxRight.getFirst().getValue();
+                queueAuxRight.dequeue();
+            } else {
+                this.initFighters();
+                this.adminFight();
+            }
+        }
+      
         String result = this.processor.determinate(fighterL, fighterR);
         if (result.equals("tie")) {
             Node nodeL = new Node(fighterL);
@@ -261,6 +277,52 @@ public class Administrator {
         }
     }
     
+    public Fighter checkQueues(Queue queue){
+        Node node = queue.getFirst();
+        for (int i = 0; i < queue.getSize(); i++) {
+            Fighter fighter = (Fighter) node.getValue();
+            fighter.setWaitCounter(fighter.getWaitCounter() + 1);
+            if (fighter.getWaitCounter() >= fighter.getWaitLimit()) {
+                return fighter;
+            } else {
+                node = node.getNext();
+            }          
+        }
+        return null;
+    }
+    
+    public void adminQueues() {
+        Fighter upAuxL = checkQueues(queueAuxLeft);
+        upAuxL.evolve();
+        Fighter upLowL = checkQueues(queueLowLeft);
+        upLowL.evolve();
+        queueAuxLeft.dequeue();
+        queueLowLeft.inqueue(new Node(upAuxL));
+        Fighter upMidL = checkQueues(queueMidLeft);
+        upMidL.evolve();
+        queueLowLeft.dequeue();
+        queueMidLeft.inqueue(new Node(upLowL));
+        Fighter upHighL = checkQueues(queueHighLeft);
+        upHighL.evolve();
+        queueMidLeft.dequeue();
+        queueHighLeft.inqueue(new Node (upMidL));
+        
+        Fighter upAuxR = checkQueues(queueAuxRight);
+        upAuxR.evolve();
+        Fighter upLowR = checkQueues(queueLowRight);
+        upLowR.evolve();
+        queueAuxRight.dequeue();
+        queueLowRight.inqueue(new Node(upAuxR));
+        Fighter upMidR = checkQueues(queueMidRight);
+        upMidR.evolve();
+        queueLowRight.dequeue();
+        queueMidRight.inqueue(new Node(upLowR));
+        Fighter upHighR = checkQueues(queueHighRight);
+        upHighR.evolve();
+        queueMidRight.dequeue();
+        queueHighRight.inqueue(new Node (upMidR));
+    }
+    
     public void adminRun(){
         adminFight();
         if (cycleCounter%cycles == 0) {
@@ -268,6 +330,7 @@ public class Administrator {
                 createFighters();
             }
         }
+        adminQueues();
         cycles += 1;
     }
 }
