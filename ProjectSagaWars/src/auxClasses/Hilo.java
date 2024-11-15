@@ -18,7 +18,7 @@ public class Hilo extends Thread{
     private Administrator admin;
     
     public Hilo (int delay, Administrator admin){
-        this.delay = delay;
+        this.delay = delay * 500;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
         this.admin = admin;
