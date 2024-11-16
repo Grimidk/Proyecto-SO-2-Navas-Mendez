@@ -29,6 +29,8 @@ public class Administrator{
     private Queue queueLowLeft;
     private Queue queueAuxLeft;
     private int probReinforce;
+    private Fighter activeFighterL;
+    private Fighter activeFighterR;
 
     public Administrator(Processor processor) {
         this.processor = processor;
@@ -49,6 +51,8 @@ public class Administrator{
         this.queueLowLeft = new Queue();
         this.queueAuxLeft = new Queue();
         this.probReinforce = 80;
+        this.activeFighterL = null;
+        this.activeFighterR = null;
     }
     
     public Processor getProcessor() {
@@ -122,7 +126,6 @@ public class Administrator{
     public void setCharactersL(String[] charactersL) {
         this.charactersL = charactersL;
     }
-    
 
     public Queue getQueueHighRight() {
         return queueHighRight;
@@ -195,6 +198,22 @@ public class Administrator{
     public void setProbReinforce(int probReinforce) {
         this.probReinforce = probReinforce;
     }
+
+    public Fighter getActiveFighterL() {
+        return activeFighterL;
+    }
+
+    public void setActiveFighterL(Fighter activeFighterL) {
+        this.activeFighterL = activeFighterL;
+    }
+
+    public Fighter getActiveFighterR() {
+        return activeFighterR;
+    }
+
+    public void setActiveFighterR(Fighter activeFighterR) {
+        this.activeFighterR = activeFighterR;
+    }
     
     public void createFighters() {
         int count = this.fighterCounter;
@@ -224,8 +243,6 @@ public class Administrator{
     }
     
     public String adminFight() {
-        Fighter fighterL = null;
-        Fighter fighterR = null;
         
         System.out.println("\n");
         System.out.println("AL" + queueAuxLeft.getSize());
@@ -239,33 +256,33 @@ public class Administrator{
         
         if (Math.random() * 100 <= probReinforce && !queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
             System.out.println("Assigned at aux 1");
-            fighterL = queueAuxLeft.getFirst().getValue();
+            activeFighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
-            fighterR = queueAuxRight.getFirst().getValue();
+            activeFighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
             System.out.println("Assigned at high");
-            fighterL = queueHighLeft.getFirst().getValue();
+            activeFighterL = queueHighLeft.getFirst().getValue();
             queueHighLeft.dequeue();
-            fighterR = queueHighRight.getFirst().getValue();
+            activeFighterR = queueHighRight.getFirst().getValue();
             queueHighRight.dequeue();
         } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
             System.out.println("Assigned at mid");
-            fighterL = queueMidLeft.getFirst().getValue();
+            activeFighterL = queueMidLeft.getFirst().getValue();
             queueMidLeft.dequeue();
-            fighterR = queueMidRight.getFirst().getValue();
+            activeFighterR = queueMidRight.getFirst().getValue();
             queueMidRight.dequeue();
         } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
             System.out.println("Assigned at low");
-            fighterL = queueLowLeft.getFirst().getValue();
+            activeFighterL = queueLowLeft.getFirst().getValue();
             queueLowLeft.dequeue();
-            fighterR = queueLowRight.getFirst().getValue();
+            activeFighterR = queueLowRight.getFirst().getValue();
             queueLowRight.dequeue();
         } else if(!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
             System.out.println("Assigned at aux 2");
-            fighterL = queueAuxLeft.getFirst().getValue();
+            activeFighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
-            fighterR = queueAuxRight.getFirst().getValue();
+            activeFighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else {
             this.initFighters();
@@ -274,28 +291,29 @@ public class Administrator{
         }
         
    
-        if(fighterL != null && fighterR != null){
-            System.out.println("\nAbout to fight: " + fighterL.getName() + " Vs. " + fighterR.getName());
-            String result = this.processor.determinate(fighterL, fighterR);
+        if(activeFighterL != null && activeFighterR != null){
+            System.out.println("\nAbout to fight: " + activeFighterL.getName() + " Vs. " + activeFighterR.getName());
+            String result = this.processor.determinate(activeFighterL, activeFighterR);
             if (result.equals("tie")) {
-                Node nodeL = new Node(fighterL);
+                Node nodeL = new Node(activeFighterL);
                 queueHighLeft.inqueue(nodeL);
-                Node nodeR = new Node(fighterR);
+                Node nodeR = new Node(activeFighterR);
                 queueHighRight.inqueue(nodeR);
                 return "tie";
             } else if (result.equals("skip")){
-                Node nodeL = new Node(fighterL);
+                Node nodeL = new Node(activeFighterL);
                 queueAuxLeft.inqueue(nodeL);
-                Node nodeR = new Node(fighterR);
+                Node nodeR = new Node(activeFighterR);
                 queueAuxRight.inqueue(nodeR);
                 return "skip";
             } else {
-                fighterL = null;
-                fighterR = null;
+                activeFighterL = null;
+                activeFighterR = null;
                 return "victory";
             }
         }
         System.out.println("Didn't fight cause lack of fighters");
+        System.out.println("#####################################\nCRITICAL ERROR\n#####################################");
         return "skip";
     }
     
@@ -304,10 +322,10 @@ public class Administrator{
             for (int i = 0; i < queue.getSize(); i++) {
                 Fighter fighter = node.getValue();
                 if (fighter != null) {
-                    System.out.println(fighter.getId() + " " + fighter.getWaitCounter());
+//                    System.out.println(fighter.getId() + " " + fighter.getWaitCounter());
                     fighter.setWaitCounter(fighter.getWaitCounter() + 1);
                     if (fighter.getWaitCounter() >= fighter.getWaitLimit()) {
-                        System.out.println("Evolving");
+//                        System.out.println("Evolving");
                         return fighter;
                     } else {
                         node = node.getNext();

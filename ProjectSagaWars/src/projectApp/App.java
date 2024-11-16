@@ -16,7 +16,7 @@ import projectInterface.Init;
 public class App {
     public static void start(){
         
-        Administrator admin = new Administrator(new Processor(10));
+        Administrator admin = new Administrator(new Processor(5));
         Hilo thread = new Hilo(admin.getProcessor().getDuration(),admin);
         thread.start();
         
