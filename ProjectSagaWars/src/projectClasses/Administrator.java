@@ -270,8 +270,8 @@ public class Administrator{
             this.adminFight();
         }
         
-        System.out.println("About to fight: " + fighterL.getName() + " Vs. " + fighterR.getName());
-        while(fighterL != null && fighterR != null){
+//        System.out.println("About to fight: " + fighterL.getName() + " Vs. " + fighterR.getName());
+//        while(fighterL != null && fighterR != null){
             String result = this.processor.determinate(fighterL, fighterR);
             if (result.equals("tie")) {
                 Node nodeL = new Node(fighterL);
@@ -290,8 +290,8 @@ public class Administrator{
                 fighterR = null;
                 return "victory";
             }
-        }
-        return "skip";
+//        }
+//        return "skip";
     }
     
     public Fighter checkQueues(Queue queue){
