@@ -26,21 +26,154 @@ public class Init extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        salir = new javax.swing.JButton();
+        FightingTitle = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        FightingTitle2 = new javax.swing.JLabel();
+        FightingTitle3 = new javax.swing.JLabel();
+        FightingTitle4 = new javax.swing.JLabel();
+        FightingTitle5 = new javax.swing.JLabel();
+        FightingTitle6 = new javax.swing.JLabel();
+        FightingTitle7 = new javax.swing.JLabel();
+        FightingTitle8 = new javax.swing.JLabel();
+        FightingTitle9 = new javax.swing.JLabel();
+        FightingTitle10 = new javax.swing.JLabel();
+        FightingTitle11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        FightingTitle12 = new javax.swing.JLabel();
+        FightingTitle13 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        salir.setText("Salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 420, -1, -1));
+
+        FightingTitle.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        FightingTitle.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle.setText("VICTORIAS:");
+        jPanel1.add(FightingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, 80, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectInterface/Untitled design.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectInterface/output-onlinepngtools (1).png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, -1, -1));
+
+        FightingTitle2.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        FightingTitle2.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle2.setText("FIGHTING AREA");
+        jPanel1.add(FightingTitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 150, 40));
+
+        FightingTitle3.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle3.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle3.setText("COLA DE PRIORIDAD 1:");
+        jPanel1.add(FightingTitle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 150, 30));
+
+        FightingTitle4.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        FightingTitle4.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle4.setText("V.");
+        jPanel1.add(FightingTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 30, 30));
+
+        FightingTitle5.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle5.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle5.setText("COLA DE PRIORIDAD 2:");
+        jPanel1.add(FightingTitle5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, 150, 30));
+
+        FightingTitle6.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle6.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle6.setText("COLA DE PRIORIDAD 1:");
+        jPanel1.add(FightingTitle6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 150, 30));
+
+        FightingTitle7.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle7.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle7.setText("COLA DE PRIORIDAD 3:");
+        jPanel1.add(FightingTitle7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 150, 30));
+
+        FightingTitle8.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle8.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle8.setText("COLA DE PRIORIDAD 2:");
+        jPanel1.add(FightingTitle8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 150, 30));
+
+        FightingTitle9.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle9.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle9.setText("COLA DE REFUERZOS");
+        jPanel1.add(FightingTitle9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 310, 150, 30));
+
+        FightingTitle10.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle10.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle10.setText("COLA DE PRIORIDAD 3:");
+        jPanel1.add(FightingTitle10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 150, 30));
+
+        FightingTitle11.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle11.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle11.setText("COLA DE REFUERZOS");
+        jPanel1.add(FightingTitle11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 150, 30));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 140, 50));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 140, 50));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 140, 50));
+        jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 140, 50));
+        jPanel1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 50));
+        jPanel1.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, 140, 50));
+        jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 140, 50));
+        jPanel1.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 140, 50));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, 180));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 170, 180));
+
+        FightingTitle12.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        FightingTitle12.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle12.setText("VELOCIDAD");
+        jPanel1.add(FightingTitle12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, 100, 30));
+
+        FightingTitle13.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
+        FightingTitle13.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle13.setText("VICTORIAS:");
+        jPanel1.add(FightingTitle13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 80, 30));
+        jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+        this.dispose();
+    }//GEN-LAST:event_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +211,33 @@ public class Init extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FightingTitle;
+    private javax.swing.JLabel FightingTitle10;
+    private javax.swing.JLabel FightingTitle11;
+    private javax.swing.JLabel FightingTitle12;
+    private javax.swing.JLabel FightingTitle13;
+    private javax.swing.JLabel FightingTitle2;
+    private javax.swing.JLabel FightingTitle3;
+    private javax.swing.JLabel FightingTitle4;
+    private javax.swing.JLabel FightingTitle5;
+    private javax.swing.JLabel FightingTitle6;
+    private javax.swing.JLabel FightingTitle7;
+    private javax.swing.JLabel FightingTitle8;
+    private javax.swing.JLabel FightingTitle9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }
