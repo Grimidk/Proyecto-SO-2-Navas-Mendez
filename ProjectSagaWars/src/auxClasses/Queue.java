@@ -7,7 +7,7 @@ package auxClasses;
 
 /**
  *
- * @author vadau
+ * @author svet
  */
 public class Queue {
     

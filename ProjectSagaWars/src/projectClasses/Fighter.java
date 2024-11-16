@@ -13,17 +13,19 @@ public class Fighter {
     private String saga;
     private String name;
     private int waitCounter;
+    private int waitLimit;
     private boolean healthStat;
     private boolean attackStat;
     private boolean speedStat;
     private boolean skillStat;
     private int quality;
 
-    public Fighter(int id, String saga, String name) {
+    public Fighter(int duration, int id, String saga, String name) {
         this.id = id;
         this.saga = saga;
         this.name = name;
         this.waitCounter = 0;
+        this.waitLimit = 8;
         this.healthStat = (Math.random() * 100) >= 70;
         this.attackStat = (Math.random() * 100) >= 50;
         this.speedStat = (Math.random() * 100) >= 40;
@@ -97,6 +99,14 @@ public class Fighter {
         this.waitCounter = waitCounter;
     }
 
+    public int getWaitLimit() {
+        return waitLimit;
+    }
+
+    public void setWaitLimit(int waitLimit) {
+        this.waitLimit = waitLimit;
+    }
+    
     public boolean isHealthStat() {
         return healthStat;
     }
