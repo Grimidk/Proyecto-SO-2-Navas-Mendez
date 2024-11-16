@@ -213,7 +213,7 @@ public class Administrator{
         }
         if (fighterR.getQuality() == 3) {
             this.queueHighRight.inqueue(nodeR);
-        } else if (fighterL.getQuality() == 2){
+        } else if (fighterR.getQuality() == 2){
             this.queueMidRight.inqueue(nodeR);
         } else {
             this.queueLowRight.inqueue(nodeR);
@@ -231,6 +231,7 @@ public class Administrator{
         Fighter fighterL = null;
         Fighter fighterR = null;
         
+        System.out.println("\n");
         System.out.println("AL" + queueAuxLeft.getSize());
         System.out.println("LL" + queueLowLeft.getSize());
         System.out.println("ML" + queueMidLeft.getSize());
@@ -241,26 +242,31 @@ public class Administrator{
         System.out.println("HR" + queueHighRight.getSize());
         
         if (Math.random() * 100 <= probReinforce && !queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+            System.out.println("Assigned at aux 1");
             fighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
             fighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
+            System.out.println("Assigned at high");
             fighterL = queueHighLeft.getFirst().getValue();
             queueHighLeft.dequeue();
             fighterR = queueHighRight.getFirst().getValue();
             queueHighRight.dequeue();
         } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
+            System.out.println("Assigned at mid");
             fighterL = queueMidLeft.getFirst().getValue();
             queueMidLeft.dequeue();
             fighterR = queueMidRight.getFirst().getValue();
             queueMidRight.dequeue();
         } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
+            System.out.println("Assigned at low");
             fighterL = queueLowLeft.getFirst().getValue();
             queueLowLeft.dequeue();
             fighterR = queueLowRight.getFirst().getValue();
             queueLowRight.dequeue();
         } else if(!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+            System.out.println("Assigned at aux 2");
             fighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
             fighterR = queueAuxRight.getFirst().getValue();
@@ -268,10 +274,12 @@ public class Administrator{
         } else {
             this.initFighters();
             this.adminFight();
+            return "skip";
         }
         
-//        System.out.println("About to fight: " + fighterL.getName() + " Vs. " + fighterR.getName());
-//        while(fighterL != null && fighterR != null){
+   
+        if(fighterL != null && fighterR != null){
+            System.out.println("\nAbout to fight: " + fighterL.getName() + " Vs. " + fighterR.getName());
             String result = this.processor.determinate(fighterL, fighterR);
             if (result.equals("tie")) {
                 Node nodeL = new Node(fighterL);
@@ -290,8 +298,9 @@ public class Administrator{
                 fighterR = null;
                 return "victory";
             }
-//        }
-//        return "skip";
+        }
+        System.out.println("Didn't fight cause lack of fighters");
+        return "skip";
     }
     
     public Fighter checkQueues(Queue queue){
@@ -299,8 +308,10 @@ public class Administrator{
             for (int i = 0; i < queue.getSize(); i++) {
                 Fighter fighter = node.getValue();
                 if (fighter != null) {
+                    System.out.println(fighter.getId() + " " + fighter.getWaitCounter());
                     fighter.setWaitCounter(fighter.getWaitCounter() + 1);
                     if (fighter.getWaitCounter() >= fighter.getWaitLimit()) {
+                        System.out.println("Evolving");
                         return fighter;
                     } else {
                         node = node.getNext();
@@ -312,34 +323,50 @@ public class Administrator{
     
     public void adminQueues() {
         Fighter upAuxL = checkQueues(queueAuxLeft);
-        if (upAuxL != null) {upAuxL.evolve();}
+        if (upAuxL != null) {
+            upAuxL.evolve();
+            queueAuxLeft.dequeue();
+            queueLowLeft.inqueue(new Node(upAuxL));
+        }
         Fighter upLowL = checkQueues(queueLowLeft);
-        if (upLowL != null) {upLowL.evolve();}
-        queueAuxLeft.dequeue();
-        queueLowLeft.inqueue(new Node(upAuxL));
+        if (upLowL != null) {
+            upLowL.evolve();
+            queueLowLeft.dequeue();
+            queueMidLeft.inqueue(new Node(upLowL));
+        }
         Fighter upMidL = checkQueues(queueMidLeft);
-        if (upMidL != null) {upMidL.evolve();}
-        queueLowLeft.dequeue();
-        queueMidLeft.inqueue(new Node(upLowL));
+        if (upMidL != null) {
+            upMidL.evolve();
+            queueMidLeft.dequeue();
+            queueHighLeft.inqueue(new Node (upMidL));
+        }
         Fighter upHighL = checkQueues(queueHighLeft);
-        if (upMidL != null) {upHighL.evolve();}
-        queueMidLeft.dequeue();
-        queueHighLeft.inqueue(new Node (upMidL));
-        
+        if (upMidL != null) {
+            upHighL.evolve();
+        }
+       
         Fighter upAuxR = checkQueues(queueAuxRight);
-        if (upAuxR != null) {upAuxR.evolve();}
+        if (upAuxR != null) {
+            upAuxR.evolve();
+            queueAuxRight.dequeue();
+            queueLowRight.inqueue(new Node(upAuxR));
+        }
         Fighter upLowR = checkQueues(queueLowRight);
-        if (upLowR != null) {upLowR.evolve();}
-        queueAuxRight.dequeue();
-        queueLowRight.inqueue(new Node(upAuxR));
+        if (upLowR != null) {
+            upLowR.evolve();
+            queueLowRight.dequeue();
+            queueMidRight.inqueue(new Node(upLowR));
+        }
         Fighter upMidR = checkQueues(queueMidRight);
-        if (upMidR != null) {upMidR.evolve();}
-        queueLowRight.dequeue();
-        queueMidRight.inqueue(new Node(upLowR));
+        if (upMidR != null) {
+            upMidR.evolve();
+            queueMidRight.dequeue();
+            queueHighRight.inqueue(new Node (upMidR));
+        }
         Fighter upHighR = checkQueues(queueHighRight);
-        if (upHighR != null) {upHighR.evolve();}
-        queueMidRight.dequeue();
-        queueHighRight.inqueue(new Node (upMidR));
+        if (upHighR != null) {
+            upHighR.evolve();
+        }
     }
     
     public void adminRun(){
