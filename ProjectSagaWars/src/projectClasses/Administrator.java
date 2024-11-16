@@ -204,12 +204,16 @@ public class Administrator{
         Fighter fighterR = new Fighter(this.processor.getDuration(),(count + 1), sagaR, charactersR[(int) (Math.random() * 10)]);
         System.out.println("Created: " + fighterR.getName() + " with ID: " + fighterR.getId());
         Node nodeR = new Node(fighterR);
-        if (fighterL.getQuality() == 3) {
-            this.queueHighLeft.inqueue(nodeL);
-        } else if (fighterL.getQuality() == 2){
-            this.queueMidLeft.inqueue(nodeL);
-        } else {
-            this.queueLowLeft.inqueue(nodeL);
+        switch (fighterL.getQuality()) {
+            case 3:
+                this.queueHighLeft.inqueue(nodeL);
+                break;
+            case 2:
+                this.queueMidLeft.inqueue(nodeL);
+                break;
+            default:
+                this.queueLowLeft.inqueue(nodeL);
+                break;
         }
         if (fighterR.getQuality() == 3) {
             this.queueHighRight.inqueue(nodeR);
