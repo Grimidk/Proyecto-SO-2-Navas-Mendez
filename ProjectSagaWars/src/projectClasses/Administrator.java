@@ -199,8 +199,10 @@ public class Administrator{
     public void createFighters() {
         int count = this.fighterCounter;
         Fighter fighterL = new Fighter(this.processor.getDuration(),count, sagaL, charactersL[(int) (Math.random() * 10)]);
+        System.out.println("Created: " + fighterL.getName() + " with ID: " + fighterL.getId());
         Node nodeL = new Node(fighterL);
-        Fighter fighterR = new Fighter(this.processor.getDuration(),(count + 1), sagaR, charactersL[(int) (Math.random() * 10)]);
+        Fighter fighterR = new Fighter(this.processor.getDuration(),(count + 1), sagaR, charactersR[(int) (Math.random() * 10)]);
+        System.out.println("Created: " + fighterR.getName() + " with ID: " + fighterR.getId());
         Node nodeR = new Node(fighterR);
         if (fighterL.getQuality() == 3) {
             this.queueHighLeft.inqueue(nodeL);
@@ -216,6 +218,7 @@ public class Administrator{
         } else {
             this.queueLowRight.inqueue(nodeR);
         }
+        this.fighterCounter += 2;
     }
     
     public void initFighters() {
@@ -224,101 +227,117 @@ public class Administrator{
         }
     }
     
-    public void adminFight() {
+    public String adminFight() {
         Fighter fighterL = null;
         Fighter fighterR = null;
         
-        if (Math.random() * 100 <= probReinforce) {
-            fighterL = (Fighter) queueAuxLeft.getFirst().getValue();
+        System.out.println("AL" + queueAuxLeft.getSize());
+        System.out.println("LL" + queueLowLeft.getSize());
+        System.out.println("ML" + queueMidLeft.getSize());
+        System.out.println("HL" + queueHighLeft.getSize());
+        System.out.println("AR" + queueAuxRight.getSize());
+        System.out.println("LR" + queueLowRight.getSize());
+        System.out.println("MR" + queueMidRight.getSize());
+        System.out.println("HR" + queueHighRight.getSize());
+        
+        if (Math.random() * 100 <= probReinforce && !queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+            fighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
-            fighterR = (Fighter) queueAuxRight.getFirst().getValue();
+            fighterR = queueAuxRight.getFirst().getValue();
+            queueAuxRight.dequeue();
+        } else if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
+            fighterL = queueHighLeft.getFirst().getValue();
+            queueHighLeft.dequeue();
+            fighterR = queueHighRight.getFirst().getValue();
+            queueHighRight.dequeue();
+        } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
+            fighterL = queueMidLeft.getFirst().getValue();
+            queueMidLeft.dequeue();
+            fighterR = queueMidRight.getFirst().getValue();
+            queueMidRight.dequeue();
+        } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
+            fighterL = queueLowLeft.getFirst().getValue();
+            queueLowLeft.dequeue();
+            fighterR = queueLowRight.getFirst().getValue();
+            queueLowRight.dequeue();
+        } else if(!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
+            fighterL = queueAuxLeft.getFirst().getValue();
+            queueAuxLeft.dequeue();
+            fighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else {
+            this.initFighters();
+            this.adminFight();
+        }
         
-            if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
-                fighterL = (Fighter) queueHighLeft.getFirst().getValue();
-                queueHighLeft.dequeue();
-                fighterR = (Fighter) queueHighRight.getFirst().getValue();
-                queueHighRight.dequeue();
-            } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
-                fighterL = (Fighter) queueMidLeft.getFirst().getValue();
-                queueMidLeft.dequeue();
-                fighterR = (Fighter) queueMidRight.getFirst().getValue();
-                queueMidRight.dequeue();
-            } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
-                fighterL = (Fighter) queueLowLeft.getFirst().getValue();
-                queueLowLeft.dequeue();
-                fighterR = (Fighter) queueLowRight.getFirst().getValue();
-                queueLowRight.dequeue();
-            } else if (!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
-                fighterL = (Fighter) queueAuxLeft.getFirst().getValue();
-                queueAuxLeft.dequeue();
-                fighterR = (Fighter) queueAuxRight.getFirst().getValue();
-                queueAuxRight.dequeue();
+        System.out.println("About to fight: " + fighterL.getName() + " Vs. " + fighterR.getName());
+        while(fighterL != null && fighterR != null){
+            String result = this.processor.determinate(fighterL, fighterR);
+            if (result.equals("tie")) {
+                Node nodeL = new Node(fighterL);
+                queueHighLeft.inqueue(nodeL);
+                Node nodeR = new Node(fighterR);
+                queueHighRight.inqueue(nodeR);
+                return "tie";
+            } else if (result.equals("skip")){
+                Node nodeL = new Node(fighterL);
+                queueAuxLeft.inqueue(nodeL);
+                Node nodeR = new Node(fighterR);
+                queueAuxRight.inqueue(nodeR);
+                return "skip";
             } else {
-                this.initFighters();
-                this.adminFight();
+                fighterL = null;
+                fighterR = null;
+                return "victory";
             }
         }
-      
-        String result = this.processor.determinate(fighterL, fighterR);
-        if (result.equals("tie")) {
-            Node nodeL = new Node(fighterL);
-            queueHighLeft.inqueue(nodeL);
-            Node nodeR = new Node(fighterR);
-            queueHighRight.inqueue(nodeR);
-        } else if (result.equals("skip")){
-            Node nodeL = new Node(fighterL);
-            queueAuxLeft.inqueue(nodeL);
-            Node nodeR = new Node(fighterR);
-            queueAuxRight.inqueue(nodeR);
-        } else {
-
-        }
+        return "skip";
     }
     
     public Fighter checkQueues(Queue queue){
         Node node = queue.getFirst();
-        for (int i = 0; i < queue.getSize(); i++) {
-            Fighter fighter = (Fighter) node.getValue();
-            fighter.setWaitCounter(fighter.getWaitCounter() + 1);
-            if (fighter.getWaitCounter() >= fighter.getWaitLimit()) {
-                return fighter;
-            } else {
-                node = node.getNext();
-            }          
-        }
+            for (int i = 0; i < queue.getSize(); i++) {
+                Fighter fighter = node.getValue();
+                if (fighter != null) {
+                    fighter.setWaitCounter(fighter.getWaitCounter() + 1);
+                    if (fighter.getWaitCounter() >= fighter.getWaitLimit()) {
+                        return fighter;
+                    } else {
+                        node = node.getNext();
+                    }  
+                }
+            }
         return null;
     }
     
     public void adminQueues() {
         Fighter upAuxL = checkQueues(queueAuxLeft);
-        upAuxL.evolve();
+        if (upAuxL != null) {upAuxL.evolve();}
         Fighter upLowL = checkQueues(queueLowLeft);
-        upLowL.evolve();
+        if (upLowL != null) {upLowL.evolve();}
         queueAuxLeft.dequeue();
         queueLowLeft.inqueue(new Node(upAuxL));
         Fighter upMidL = checkQueues(queueMidLeft);
-        upMidL.evolve();
+        if (upMidL != null) {upMidL.evolve();}
         queueLowLeft.dequeue();
         queueMidLeft.inqueue(new Node(upLowL));
         Fighter upHighL = checkQueues(queueHighLeft);
-        upHighL.evolve();
+        if (upMidL != null) {upHighL.evolve();}
         queueMidLeft.dequeue();
         queueHighLeft.inqueue(new Node (upMidL));
         
         Fighter upAuxR = checkQueues(queueAuxRight);
-        upAuxR.evolve();
+        if (upAuxR != null) {upAuxR.evolve();}
         Fighter upLowR = checkQueues(queueLowRight);
-        upLowR.evolve();
+        if (upLowR != null) {upLowR.evolve();}
         queueAuxRight.dequeue();
         queueLowRight.inqueue(new Node(upAuxR));
         Fighter upMidR = checkQueues(queueMidRight);
-        upMidR.evolve();
+        if (upMidR != null) {upMidR.evolve();}
         queueLowRight.dequeue();
         queueMidRight.inqueue(new Node(upLowR));
         Fighter upHighR = checkQueues(queueHighRight);
-        upHighR.evolve();
+        if (upHighR != null) {upHighR.evolve();}
         queueMidRight.dequeue();
         queueHighRight.inqueue(new Node (upMidR));
     }
@@ -331,6 +350,12 @@ public class Administrator{
             }
         }
         adminQueues();
-        cycles += 1;
+        
+        System.out.println("\n");
+        System.out.println("Cycles: " + cycleCounter);
+        System.out.println("Total Figthers: " + fighterCounter);
+        System.out.println("Winners Left: " + processor.getWinnersL().size());
+        System.out.println("Winners Right: " + processor.getWinnersR().size());
+        cycleCounter += 1;
     }
 }
