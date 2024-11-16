@@ -16,6 +16,56 @@ public class Init extends javax.swing.JFrame {
     public Init() {
         initComponents();
     }
+    
+    public void imageSwitcher(String name){
+        String imagePath = "";
+        
+        switch (name){
+            case "Ambassador Spock":
+            imagePath = "/projectInterface.trekImages/spock.jpg";
+            break;
+            
+            case "Admiral Picard":
+            imagePath = "/projectInterface.trekImages/picard.jpg";
+            break;
+            
+            case "Officer Worf":
+            imagePath = "/projectInterface.trekImages/worf.jpg";
+            break;
+            
+            case "Captain Kirk":
+            imagePath = "/projectInterface.trekImages/kirk.jpg";
+            break;
+            
+            case "Lieutenant Data":
+            imagePath = "/projectInterface.trekImages/data.jpg";
+            break;
+            
+            case "Vice Admiral Janeway":
+            imagePath = "/projectInterface.trekImages/janeway.jpg";
+            break;
+            
+            case "Dr. McCoy":
+            imagePath = "/projectInterface.trekImages/mccoy.jpg";
+            break;
+            
+            case "Commander Sisko":
+            imagePath = "/projectInterface.trekImages/sisko.jpg";
+            break;
+            
+            case "Fleet Captain Pike":
+            imagePath = "/projectInterface.trekImages/captain pike.jpg";
+            break;
+            
+            case "Chief Engineer La Forge":
+            imagePath = "/projectInterface.trekImages/engineer la forge.jpg";
+            break;
+            
+            default:
+            imagePath = "";
+            break;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
