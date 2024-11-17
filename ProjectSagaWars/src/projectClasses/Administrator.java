@@ -5,6 +5,7 @@
 package projectClasses;
 import auxClasses.Node;
 import auxClasses.Queue;
+import java.util.ArrayList;
 
 /**
  *
@@ -383,8 +384,20 @@ public class Administrator{
         }
     }
     
+    public ArrayList getQueueInfo(Queue queue){
+        ArrayList<String> data = new ArrayList<String>();
+        Node node = queue.getFirst();
+        for (int i = 0; i < queue.getSize(); i++) {
+            data.add(Integer.toString(node.getValue().getId()));
+            data.add(node.getValue().getName());
+            node = node.getNext();
+        }
+        return data;
+    }
+    
     public void adminRun(){
         adminFight();
+        processor.setStatus("idle");
         if (cycleCounter%cycles == 0) {
             if (Math.random() * 100 <= probCreate) {
                 createFighters();

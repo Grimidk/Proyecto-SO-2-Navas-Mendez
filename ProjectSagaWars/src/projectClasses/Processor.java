@@ -10,6 +10,7 @@ import auxClasses.LinkedList;
  * @author juanmendezl
  */
 public class Processor {
+    private String status;
     private int duration;
     private int probFight;
     private int probTie;
@@ -18,12 +19,21 @@ public class Processor {
     private LinkedList winnersR;
 
     public Processor(int duration) {
+        this.status = "idle";
         this.duration = duration;
         this.probFight = 40;
         this.probTie = 27;
         this.probSkip = 33;
         this.winnersL = new LinkedList();
         this.winnersR = new LinkedList();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getDuration() {
@@ -75,6 +85,7 @@ public class Processor {
     }
     
     public String determinate(Fighter fighterL, Fighter fighterR){
+        status = "deciding";
         String result = null;
         double rand = Math.random() * 100;
         if (rand >= this.probFight + this.probTie) {
@@ -88,6 +99,7 @@ public class Processor {
     }
     
     public String fight(Fighter fighterL, Fighter fighterR){
+        status = "battling";
         System.out.println("Currently fighting: " + fighterL.getName() + " Vs " + fighterR.getName());
         int qualityDiff = fighterL.getQuality() - fighterR.getQuality();
         int chance = (int) (Math.random() * 100);
@@ -144,11 +156,13 @@ public class Processor {
     }
     
     public String skip(Fighter fighterL,Fighter fighterR){
+        status = "battling";
         System.out.println("Battle skipped");
         return "skip";
     }
     
     public String tie(Fighter fighterL,Fighter fighterR){
+        status = "battling";
         System.out.println("Battle tied");
         return "tie";
     }
