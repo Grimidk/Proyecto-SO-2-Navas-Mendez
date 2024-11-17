@@ -8,6 +8,7 @@ import projectClasses.Processor;
 import auxClasses.Hilo;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Init extends javax.swing.JFrame {
     public Init() {
         initComponents();
         Administrator admin = new Administrator(new Processor(5));
-        hilo = new Hilo(admin.getProcessor().getDuration(),admin);
+        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR);
         hilo.start();
         
     }
@@ -92,6 +93,14 @@ public class Init extends javax.swing.JFrame {
         FightingTitle12 = new javax.swing.JLabel();
         FightingTitle13 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
+        winnersR = new javax.swing.JTextField();
+        winnersL = new javax.swing.JTextField();
+        nameR = new javax.swing.JTextField();
+        nameL = new javax.swing.JTextField();
+        idL = new javax.swing.JTextField();
+        idR = new javax.swing.JTextField();
+        FightingTitle14 = new javax.swing.JLabel();
+        FightingTitle15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -111,13 +120,13 @@ public class Init extends javax.swing.JFrame {
         FightingTitle.setForeground(new java.awt.Color(255, 255, 255));
         FightingTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FightingTitle.setText("VICTORIAS:");
-        jPanel1.add(FightingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, 80, 30));
+        jPanel1.add(FightingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 80, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectInterface/Untitled design.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectInterface/output-onlinepngtools (1).png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, -1));
 
         FightingTitle2.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         FightingTitle2.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,8 +155,8 @@ public class Init extends javax.swing.JFrame {
         FightingTitle6.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         FightingTitle6.setForeground(new java.awt.Color(255, 255, 255));
         FightingTitle6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        FightingTitle6.setText("COLA DE PRIORIDAD 1:");
-        jPanel1.add(FightingTitle6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 150, 30));
+        FightingTitle6.setText("ID:");
+        jPanel1.add(FightingTitle6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, 30, 30));
 
         FightingTitle7.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         FightingTitle7.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,8 +195,8 @@ public class Init extends javax.swing.JFrame {
         jPanel1.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, 140, 50));
         jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 140, 50));
         jPanel1.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 140, 50));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, 180));
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 170, 180));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 220, 230));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 220, 230));
 
         FightingTitle12.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         FightingTitle12.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,6 +211,68 @@ public class Init extends javax.swing.JFrame {
         jPanel1.add(FightingTitle13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 80, 30));
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, -1, -1));
 
+        winnersR.setEditable(false);
+        winnersR.setColumns(3);
+        winnersR.setText("0");
+        winnersR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                winnersRActionPerformed(evt);
+            }
+        });
+        jPanel1.add(winnersR, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, -1, -1));
+
+        winnersL.setEditable(false);
+        winnersL.setColumns(3);
+        winnersL.setText("0");
+        winnersL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                winnersLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(winnersL, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, -1));
+
+        nameR.setEditable(false);
+        nameR.setColumns(15);
+        nameR.setText("choosing");
+        jPanel1.add(nameR, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, -1, -1));
+
+        nameL.setEditable(false);
+        nameL.setColumns(15);
+        nameL.setText("choosing");
+        nameL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nameL, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, -1, -1));
+
+        idL.setEditable(false);
+        idL.setColumns(3);
+        idL.setText("0");
+        idL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(idL, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, -1, -1));
+
+        idR.setEditable(false);
+        idR.setColumns(3);
+        idR.setText("0");
+        jPanel1.add(idR, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, -1, -1));
+
+        FightingTitle14.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle14.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle14.setText("COLA DE PRIORIDAD 1:");
+        jPanel1.add(FightingTitle14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 150, 30));
+
+        FightingTitle15.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        FightingTitle15.setForeground(new java.awt.Color(255, 255, 255));
+        FightingTitle15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FightingTitle15.setText("ID:");
+        jPanel1.add(FightingTitle15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 30, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 460));
 
         pack();
@@ -212,6 +283,24 @@ public class Init extends javax.swing.JFrame {
         System.exit(0);
         this.dispose();
     }//GEN-LAST:event_salirActionPerformed
+
+    private void winnersLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_winnersLActionPerformed
+        // TODO add your handling code here:
+        winnersL.setText("0");
+    }//GEN-LAST:event_winnersLActionPerformed
+
+    private void winnersRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_winnersRActionPerformed
+        // TODO add your handling code here:
+        winnersR.setText("0");
+    }//GEN-LAST:event_winnersRActionPerformed
+
+    private void nameLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameLActionPerformed
+
+    private void idLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,6 +343,8 @@ public class Init extends javax.swing.JFrame {
     private javax.swing.JLabel FightingTitle11;
     private javax.swing.JLabel FightingTitle12;
     private javax.swing.JLabel FightingTitle13;
+    private javax.swing.JLabel FightingTitle14;
+    private javax.swing.JLabel FightingTitle15;
     private javax.swing.JLabel FightingTitle2;
     private javax.swing.JLabel FightingTitle3;
     private javax.swing.JLabel FightingTitle4;
@@ -262,6 +353,8 @@ public class Init extends javax.swing.JFrame {
     private javax.swing.JLabel FightingTitle7;
     private javax.swing.JLabel FightingTitle8;
     private javax.swing.JLabel FightingTitle9;
+    private javax.swing.JTextField idL;
+    private javax.swing.JTextField idR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -276,6 +369,10 @@ public class Init extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTextField nameL;
+    private javax.swing.JTextField nameR;
     private javax.swing.JButton salir;
+    private javax.swing.JTextField winnersL;
+    private javax.swing.JTextField winnersR;
     // End of variables declaration//GEN-END:variables
 }

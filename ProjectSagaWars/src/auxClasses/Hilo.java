@@ -7,8 +7,10 @@ import java.net.URL;
 import java.util.concurrent.Semaphore;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import projectClasses.Administrator;
+import projectClasses.Processor;
 
 /**
  *
@@ -20,14 +22,30 @@ public class Hilo extends Thread{
     private Semaphore sema;
     private boolean killSwitch;
     private Administrator admin;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
+    private Processor proc;
+    private final JLabel jLabel3;
+    private final JLabel jLabel4;
+    private final JTextField winnersL;
+    private final JTextField winnersR;
+    private final JTextField nameL;
+    private final JTextField nameR;
+    private final JTextField idL;
+    private final JTextField idR;
     
-    public Hilo (int delay, Administrator admin){
+    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR){
         this.delay = delay * 500;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
         this.admin = admin;
+        this.proc = proc;
+        this.jLabel3 = jLabel3;
+        this.jLabel4 = jLabel4;
+        this.winnersL = winnersL;
+        this.winnersR = winnersR;
+        this.nameL = nameL;
+        this.nameR = nameR;
+        this.idL = idL;
+        this.idR = idR;
     }
     public float getDelay() {
         return delay;
@@ -66,6 +84,19 @@ public class Hilo extends Thread{
                 sema.release();
                 sleep((long) (delay));
                 
+                updateFighterImages();
+                
+                int countL = proc.getWinnersL().size();
+                SwingUtilities.invokeLater(() -> {
+                winnersL.setText(String.valueOf(countL));
+                });
+                
+                int countR = proc.getWinnersR().size();
+                SwingUtilities.invokeLater(() -> {
+                winnersR.setText(String.valueOf(countR));
+                });
+                
+                
             }catch (InterruptedException e){
                 throw new RuntimeException(e);
             }
@@ -73,16 +104,25 @@ public class Hilo extends Thread{
     }
     
     private void updateFighterImages(){
-        String fighterLName = admin.getActiveFighterL().getName();
-        String fighterRName = admin.getActiveFighterR().getName();
         
-        SwingUtilities.invokeLater(new Runnable(){
-        @Override
-        public void run() {
-            setIconForLabel(jLabel4, fighterLName);
-            setIconForLabel(jLabel3, fighterRName);
+        if (admin.getActiveFighterL() != null && admin.getActiveFighterR() != null){
+            String fighterLName = admin.getActiveFighterL().getName();
+            String fighterRName = admin.getActiveFighterR().getName();
+            int fighterLId = admin.getActiveFighterL().getId();
+            int fighterRId = admin.getActiveFighterR().getId();
+        
+            SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run() {
+                setIconForLabel(jLabel4, fighterLName);
+                setIconForLabel(jLabel3, fighterRName);
+                nameL.setText(fighterLName);
+                nameR.setText(fighterRName);
+                idL.setText(String.valueOf(fighterLId));
+                idR.setText(String.valueOf(fighterRId));
+            }
+        });
         }
-    });
     }
     
     private void setIconForLabel(javax.swing.JLabel label, String fighterName){
@@ -90,64 +130,64 @@ public class Hilo extends Thread{
         
         switch (fighterName){
             case "Darth Vader":
-                imagePath = "/projectInterface.fighters/dart vader.png";
+                imagePath = "/projectInterface/fighters/darth vader.jpg";
                 break;
             case "Ben Kenobi":
-                imagePath = "/projectInterface.fighters/ben kenobi.png";
+                imagePath = "/projectInterface/fighters/ben kenobi.jpg";
                 break;
             case "Han Solo":
-                imagePath = "/projectInterface.fighters/han solo.png";
+                imagePath = "/projectInterface/fighters/han solo.jpg";
                 break;
-            case "ChewBaca":
-                imagePath = "/projectInterface.fighters/chewbaca.png";
+            case "Chewbaca":
+                imagePath = "/projectInterface/fighters/chewbaca.jpg";
                 break;
             case "Princess Leia":
-                imagePath = "/projectInterface.fighters/princess leia.png";
+                imagePath = "/projectInterface/fighters/princess leia.jpg";
                 break;
             case "Master Yoda":
-                imagePath = "/projectInterface.fighters/master yoda.png";
+                imagePath = "/projectInterface/fighters/master yoda.jpg";
                 break;
             case "R2-D2":
-                imagePath = "/projectInterface.fighters/r2-d2.png";
+                imagePath = "/projectInterface/fighters/r2-d2.jpg";
                 break;
             case "C3PO":
-                imagePath = "/projectInterface.fighters/c3po.png";
+                imagePath = "/projectInterface/fighters/c3po.jpg";
                 break;
             case "Luke Skywalker":
-                imagePath = "/projectInterface.fighters/Luke skywalker.png";
+                imagePath = "/projectInterface/fighters/Luke skywalker.jpg";
                 break;
             case "Emperor Palpatine":
-                imagePath = "/projectInterface.fighters/emperor palpatine.png";
+                imagePath = "/projectInterface/fighters/emperor palpatine.jpg";
                 break;
             case "Ambassador Spock":
-                imagePath = "/projectInterface.fighters/ambassador spock.png";
+                imagePath = "/projectInterface/fighters/ambassador spock.jpg";
                 break;
             case "Admiral Picard":
-                imagePath = "/projectInterface.fighters/admiral picard.png";
+                imagePath = "/projectInterface/fighters/admiral picard.jpg";
                 break;
             case "Officer Worf":
-                imagePath = "/projectInterface.fighters/officer worf.png";
+                imagePath = "/projectInterface/fighters/officer worf.jpg";
                 break;
             case "Captain Kirk":
-                imagePath = "/projectInterface.fighters/captain kirk.png";
+                imagePath = "/projectInterface/fighters/captain kirk.jpg";
                 break;
             case "Lieutenant Data":
-                imagePath = "/projectInterface.fighters/lieutenant data.png";
+                imagePath = "/projectInterface/fighters/lieutenant data.jpg";
                 break;
             case "Vice Admiral Janeway":
-                imagePath = "/projectInterface.fighters/vice admiral janeway.png";
+                imagePath = "/projectInterface/fighters/vice admiral janeway.jpg";
                 break;
             case "Dr. McCoy":
-                imagePath = "/projectInterface.fighters/dr. mccoy.png";
+                imagePath = "/projectInterface/fighters/dr. mccoy.jpg";
                 break;
             case "Commander Sisko":
-                imagePath = "/projectInterface.fighters/commander sisko.png";
+                imagePath = "/projectInterface/fighters/commander sisko.jpg";
                 break;
             case "Fleet Captain Pike":
-                imagePath = "/projectInterface.fighters/fleet captain pike.png";
+                imagePath = "/projectInterface/fighters/fleet captain pike.jpg";
                 break;
             case "Chief Engineer La Forge":
-                imagePath = "/projectInterface.fighters/chief engineer la forge.png";
+                imagePath = "/projectInterface/fighters/chief engineer la forge.jpg";
                 break;
             default:
                 imagePath = null;
