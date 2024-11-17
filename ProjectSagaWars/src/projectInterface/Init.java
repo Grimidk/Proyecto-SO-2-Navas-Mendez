@@ -3,69 +3,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectInterface;
+import projectClasses.Administrator;
+import projectClasses.Processor;
+import auxClasses.Hilo;
+import java.net.URL;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author juanmendezl
  */
 public class Init extends javax.swing.JFrame {
+    private Processor processor;
+    private Hilo hilo;
 
     /**
      * Creates new form Init
      */
     public Init() {
         initComponents();
+        Administrator admin = new Administrator(new Processor(5));
+        hilo = new Hilo(admin.getProcessor().getDuration(),admin);
+        hilo.start();
+        
     }
     
-    public void imageSwitcher(String name){
-        String imagePath = "";
+   /* private void updateLabels(Administrator admin){
         
-        switch (name){
-            case "Ambassador Spock":
-            imagePath = "/projectInterface.trekImages/spock.jpg";
-            break;
-            
-            case "Admiral Picard":
-            imagePath = "/projectInterface.trekImages/picard.jpg";
-            break;
-            
-            case "Officer Worf":
-            imagePath = "/projectInterface.trekImages/worf.jpg";
-            break;
-            
-            case "Captain Kirk":
-            imagePath = "/projectInterface.trekImages/kirk.jpg";
-            break;
-            
-            case "Lieutenant Data":
-            imagePath = "/projectInterface.trekImages/data.jpg";
-            break;
-            
-            case "Vice Admiral Janeway":
-            imagePath = "/projectInterface.trekImages/janeway.jpg";
-            break;
-            
-            case "Dr. McCoy":
-            imagePath = "/projectInterface.trekImages/mccoy.jpg";
-            break;
-            
-            case "Commander Sisko":
-            imagePath = "/projectInterface.trekImages/sisko.jpg";
-            break;
-            
-            case "Fleet Captain Pike":
-            imagePath = "/projectInterface.trekImages/captain pike.jpg";
-            break;
-            
-            case "Chief Engineer La Forge":
-            imagePath = "/projectInterface.trekImages/engineer la forge.jpg";
-            break;
-            
-            default:
-            imagePath = "";
-            break;
+        if (admin.getActiveFighterL() != null && admin.getActiveFighterR() != null){
+            String fighterLName = admin.getActiveFighterL().getName();
+            String fighterRName = admin.getActiveFighterR().getName();
+        
+        
+        
+            setIconForLabel(jLabel4, fighterLName);
+            setIconForLabel(jLabel3, fighterRName);
         }
     }
+    
+    private void setIconForLabel(javax.swing.JLabel label, String fighterName){
+        String imagePath = "/projectInterface.fighters/" + fighterName.toLowerCase() + ".png";
+        URL imageUrl = getClass().getResource(imagePath);
+        
+        if (imageUrl != null){
+            ImageIcon icon = new ImageIcon(imageUrl);
+            label.setIcon(icon);
+        } else {
+            label.setText("Imagen no encontrada: " + fighterName);
+            label.setIcon(null);
+        }
+    } */
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,7 +122,7 @@ public class Init extends javax.swing.JFrame {
         FightingTitle2.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         FightingTitle2.setForeground(new java.awt.Color(255, 255, 255));
         FightingTitle2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        FightingTitle2.setText("FIGHTING AREA");
+        FightingTitle2.setText("BATTLE FIELD");
         jPanel1.add(FightingTitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 150, 40));
 
         FightingTitle3.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N

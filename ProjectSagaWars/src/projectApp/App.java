@@ -16,9 +16,6 @@ import projectInterface.Init;
 public class App {
     public static void start(){
         
-        Administrator admin = new Administrator(new Processor(5));
-        Hilo thread = new Hilo(admin.getProcessor().getDuration(),admin);
-        thread.start();
         
         SwingUtilities.invokeLater(() -> {
            Init ini = new Init();
