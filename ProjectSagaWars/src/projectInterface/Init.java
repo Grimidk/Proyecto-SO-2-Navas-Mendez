@@ -24,7 +24,8 @@ public class Init extends javax.swing.JFrame {
     public Init() {
         initComponents();
         Administrator admin = new Administrator(new Processor(5));
-        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR, this.statusField);
+        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR, this.statusField,
+        this.leftHighQ, this.leftMidQ, this.leftLowQ, this.leftAuxQ, this.rightHighQ, this.rightMidQ, this.rightLowQ, this.rightAuxQ);
         hilo.start();
         
     }
@@ -81,13 +82,21 @@ public class Init extends javax.swing.JFrame {
         FightingTitle10 = new javax.swing.JLabel();
         FightingTitle11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        rightHighQ = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
+        leftMidQ = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
+        rightMidQ = new javax.swing.JTextArea();
         jScrollPane5 = new javax.swing.JScrollPane();
+        rightLowQ = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
+        leftHighQ = new javax.swing.JTextArea();
         jScrollPane7 = new javax.swing.JScrollPane();
+        rightAuxQ = new javax.swing.JTextArea();
         jScrollPane8 = new javax.swing.JScrollPane();
+        leftLowQ = new javax.swing.JTextArea();
         jScrollPane9 = new javax.swing.JScrollPane();
+        leftAuxQ = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         FightingTitle12 = new javax.swing.JLabel();
@@ -188,13 +197,53 @@ public class Init extends javax.swing.JFrame {
         FightingTitle11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FightingTitle11.setText("COLA DE REFUERZOS");
         jPanel1.add(FightingTitle11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 150, 30));
+
+        rightHighQ.setColumns(20);
+        rightHighQ.setRows(5);
+        jScrollPane1.setViewportView(rightHighQ);
+
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 140, 50));
+
+        leftMidQ.setColumns(20);
+        leftMidQ.setRows(5);
+        jScrollPane2.setViewportView(leftMidQ);
+
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 140, 50));
+
+        rightMidQ.setColumns(20);
+        rightMidQ.setRows(5);
+        jScrollPane4.setViewportView(rightMidQ);
+
         jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 140, 50));
+
+        rightLowQ.setColumns(20);
+        rightLowQ.setRows(5);
+        jScrollPane5.setViewportView(rightLowQ);
+
         jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 140, 50));
+
+        leftHighQ.setColumns(20);
+        leftHighQ.setRows(5);
+        jScrollPane6.setViewportView(leftHighQ);
+
         jPanel1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 50));
+
+        rightAuxQ.setColumns(20);
+        rightAuxQ.setRows(5);
+        jScrollPane7.setViewportView(rightAuxQ);
+
         jPanel1.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, 140, 50));
+
+        leftLowQ.setColumns(20);
+        leftLowQ.setRows(5);
+        jScrollPane8.setViewportView(leftLowQ);
+
         jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 140, 50));
+
+        leftAuxQ.setColumns(20);
+        leftAuxQ.setRows(5);
+        jScrollPane9.setViewportView(leftAuxQ);
+
         jPanel1.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 140, 50));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 220, 230));
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 220, 230));
@@ -382,8 +431,16 @@ public class Init extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTextArea leftAuxQ;
+    private javax.swing.JTextArea leftHighQ;
+    private javax.swing.JTextArea leftLowQ;
+    private javax.swing.JTextArea leftMidQ;
     private javax.swing.JTextField nameL;
     private javax.swing.JTextField nameR;
+    private javax.swing.JTextArea rightAuxQ;
+    private javax.swing.JTextArea rightHighQ;
+    private javax.swing.JTextArea rightLowQ;
+    private javax.swing.JTextArea rightMidQ;
     private javax.swing.JButton salir;
     private javax.swing.JTextField statusField;
     private javax.swing.JTextField winnersL;

@@ -395,6 +395,18 @@ public class Administrator{
         return data;
     }
     
+    public String formatQueueData(Queue queue) {
+    ArrayList<String> data = getQueueInfo(queue);
+    StringBuilder formattedData = new StringBuilder();
+    for (int i = 0; i < data.size(); i += 2) { // Assuming alternating id and name
+        formattedData.append("ID: ").append(data.get(i))
+                     .append(", Name: ").append(data.get(i + 1))
+                     .append("\n");
+    }
+    return formattedData.toString();
+}
+
+    
     public void adminRun(){
         adminFight();
 //        processor.setStatus("deciding");

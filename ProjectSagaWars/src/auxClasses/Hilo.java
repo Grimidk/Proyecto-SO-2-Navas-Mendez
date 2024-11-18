@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.concurrent.Semaphore;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import projectClasses.Administrator;
@@ -32,8 +33,18 @@ public class Hilo extends Thread{
     private final JTextField idL;
     private final JTextField idR;
     private final JTextField battleStatus;
+    private final JTextArea leftHighQ;
+    private final JTextArea leftMidQ;
+    private final JTextArea leftLowQ;
+    private final JTextArea leftAuxQ;
+    private final JTextArea rightHighQ;
+    private final JTextArea rightMidQ;
+    private final JTextArea rightLowQ;
+    private final JTextArea rightAuxQ;
     
-    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR, JTextField battleStatus){
+    
+    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR, JTextField battleStatus,
+            JTextArea leftHighQ, JTextArea leftMidQ, JTextArea leftLowQ, JTextArea leftAuxQ, JTextArea rightHighQ, JTextArea rightMidQ, JTextArea rightLowQ, JTextArea rightAuxQ){
         this.delay = delay * 500;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
@@ -48,6 +59,14 @@ public class Hilo extends Thread{
         this.idL = idL;
         this.idR = idR;
         this.battleStatus = battleStatus;
+        this.leftHighQ = leftHighQ;
+        this.leftMidQ = leftMidQ;
+        this.leftLowQ = leftLowQ;
+        this.leftAuxQ = leftAuxQ;
+        this.rightHighQ = rightHighQ;
+        this.rightMidQ = rightMidQ;
+        this.rightLowQ = rightLowQ;
+        this.rightAuxQ = rightAuxQ;
     }
     public float getDelay() {
         return delay;
@@ -102,6 +121,38 @@ public class Hilo extends Thread{
                 SwingUtilities.invokeLater(() -> {
                 battleStatus.setText(fightStatus);
                 });
+                
+                Queue leftHigh = admin.getQueueHighLeft();
+                String queue1 = admin.formatQueueData(leftHigh);
+                SwingUtilities.invokeLater(() -> leftHighQ.setText(queue1));
+                
+                Queue leftMid = admin.getQueueMidLeft();
+                String queue2 = admin.formatQueueData(leftMid);
+                SwingUtilities.invokeLater(() -> leftMidQ.setText(queue2));
+                
+                Queue leftLow = admin.getQueueLowLeft();
+                String queue3 = admin.formatQueueData(leftLow);
+                SwingUtilities.invokeLater(() -> leftLowQ.setText(queue3));
+                
+                Queue leftAux = admin.getQueueAuxLeft();
+                String queue4 = admin.formatQueueData(leftAux);
+                SwingUtilities.invokeLater(() -> leftAuxQ.setText(queue4));
+                
+                Queue rightHigh = admin.getQueueHighRight();
+                String queue5 = admin.formatQueueData(rightHigh);
+                SwingUtilities.invokeLater(() -> rightHighQ.setText(queue5));
+                
+                Queue rightMid = admin.getQueueMidRight();
+                String queue6 = admin.formatQueueData(rightMid);
+                SwingUtilities.invokeLater(() -> rightMidQ.setText(queue6));
+                
+                Queue rightLow = admin.getQueueHighLeft();
+                String queue7 = admin.formatQueueData(rightLow);
+                SwingUtilities.invokeLater(() -> rightLowQ.setText(queue7));
+                
+                Queue rightAux = admin.getQueueHighLeft();
+                String queue8 = admin.formatQueueData(rightAux);
+                SwingUtilities.invokeLater(() -> rightAuxQ.setText(queue8));
                 
                 
             }catch (InterruptedException e){
@@ -216,4 +267,10 @@ public class Hilo extends Thread{
             label.setIcon(null);
         }
     }
+    
+    public void updateQueueDataGUI(Queue queue, JTextArea textArea) {
+    String queueData = admin.formatQueueData(queue);
+    textArea.setText(queueData);
+}
+
 }
