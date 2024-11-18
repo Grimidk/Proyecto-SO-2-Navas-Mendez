@@ -146,11 +146,11 @@ public class Hilo extends Thread{
                 String queue6 = admin.formatQueueData(rightMid);
                 SwingUtilities.invokeLater(() -> rightMidQ.setText(queue6));
                 
-                Queue rightLow = admin.getQueueHighLeft();
+                Queue rightLow = admin.getQueueLowRight();
                 String queue7 = admin.formatQueueData(rightLow);
                 SwingUtilities.invokeLater(() -> rightLowQ.setText(queue7));
                 
-                Queue rightAux = admin.getQueueHighLeft();
+                Queue rightAux = admin.getQueueAuxRight();
                 String queue8 = admin.formatQueueData(rightAux);
                 SwingUtilities.invokeLater(() -> rightAuxQ.setText(queue8));
                 
