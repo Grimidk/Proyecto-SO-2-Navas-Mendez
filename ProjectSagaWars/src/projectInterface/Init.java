@@ -9,12 +9,14 @@ import auxClasses.Hilo;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author juanmendezl
  */
 public class Init extends javax.swing.JFrame {
+    private Administrator admin;
     private final Hilo hilo;
 
     /**
@@ -22,12 +24,30 @@ public class Init extends javax.swing.JFrame {
      */
     public Init() {
         initComponents();
-        Administrator admin = new Administrator(new Processor(10));
-        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR,
+        admin = new Administrator(new Processor(10));
+        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this,  this.winnersL, this.winnersR,
                 this.statusField1, this.statusField2,
-        this.leftHighQ, this.leftMidQ, this.leftLowQ, this.leftAuxQ, this.rightHighQ, this.rightMidQ, this.rightLowQ, this.rightAuxQ);
+        this.leftHighQ, this.leftMidQ, this.leftLowQ, this.leftAuxQ, this.rightHighQ, this.rightMidQ, this.rightLowQ, this.rightAuxQ, this.jSpinner1);
         hilo.start();
         
+    }
+    
+    public void updateFighterImages() {
+        if (admin.getActiveFighterL() != null && admin.getActiveFighterR() != null) {
+            String fighterLName = admin.getActiveFighterL().getName();
+            String fighterRName = admin.getActiveFighterR().getName();
+            int fighterLId = admin.getActiveFighterL().getId();
+            int fighterRId = admin.getActiveFighterR().getId();
+
+            SwingUtilities.invokeLater(() -> {
+                admin.setIconForLabel(jLabel4, fighterLName); // Use Administrator to set the icon
+                admin.setIconForLabel(jLabel3, fighterRName);
+                nameL.setText(fighterLName);
+                nameR.setText(fighterRName);
+                idL.setText(String.valueOf(fighterLId));
+                idR.setText(String.valueOf(fighterRId));
+            });
+        }
     }
     
    /* private void updateLabels(Administrator admin){
@@ -260,6 +280,9 @@ public class Init extends javax.swing.JFrame {
         FightingTitle13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FightingTitle13.setText("VICTORIAS:");
         jPanel1.add(FightingTitle13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 80, 30));
+
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(10, 1, 20, 1));
+        jSpinner1.setToolTipText("");
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, -1, -1));
 
         winnersR.setEditable(false);

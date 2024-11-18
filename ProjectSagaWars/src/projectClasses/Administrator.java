@@ -6,6 +6,10 @@ package projectClasses;
 import auxClasses.Node;
 import auxClasses.Queue;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -32,8 +36,10 @@ public class Administrator{
     private int probReinforce;
     private Fighter activeFighterL;
     private Fighter activeFighterR;
+    private Map<String, ImageIcon> fighterIcons = new HashMap<>();
 
     public Administrator(Processor processor) {
+        preloadImages();
         this.processor = processor;
         this.cycles = 2;
         this.cycleCounter = 0;
@@ -422,5 +428,41 @@ public class Administrator{
         System.out.println("Winners Left: " + processor.getWinnersL().size());
         System.out.println("Winners Right: " + processor.getWinnersR().size());
         cycleCounter += 1;
+    }
+    
+    private void preloadImages() {
+    fighterIcons.put("Darth Vader", new ImageIcon(getClass().getResource("/projectInterface/fighters/darth vader.jpg")));
+    fighterIcons.put("Ben Kenobi", new ImageIcon(getClass().getResource("/projectInterface/fighters/ben kenobi.jpg")));
+    fighterIcons.put("Han Solo", new ImageIcon(getClass().getResource("/projectInterface/fighters/han solo.jpg")));
+    fighterIcons.put("Chewbaca", new ImageIcon(getClass().getResource("/projectInterface/fighters/chewbaca.jpg")));
+    fighterIcons.put("Princess Leia", new ImageIcon(getClass().getResource("/projectInterface/fighters/princess leia.jpg")));
+    fighterIcons.put("Master Yoda", new ImageIcon(getClass().getResource("/projectInterface/fighters/master yoda.jpg")));
+    fighterIcons.put("R2-D2", new ImageIcon(getClass().getResource("/projectInterface/fighters/r2-d2.jpg")));
+    fighterIcons.put("C3PO", new ImageIcon(getClass().getResource("/projectInterface/fighters/c3po.jpg")));
+    fighterIcons.put("Luke Skywalker", new ImageIcon(getClass().getResource("/projectInterface/fighters/Luke skywalker.jpg")));
+    fighterIcons.put("Emperor Palpatine", new ImageIcon(getClass().getResource("/projectInterface/fighters/emperor palpatine.jpg")));
+    fighterIcons.put("Ambassador Spock", new ImageIcon(getClass().getResource("/projectInterface/fighters/ambassador spock.jpg")));
+    fighterIcons.put("Admiral Picard", new ImageIcon(getClass().getResource("/projectInterface/fighters/admiral picard.jpg")));
+    fighterIcons.put("Officer Worf", new ImageIcon(getClass().getResource("/projectInterface/fighters/officer worf.jpg")));
+    fighterIcons.put("Captain Kirk", new ImageIcon(getClass().getResource("/projectInterface/fighters/captain kirk.jpg")));
+    fighterIcons.put("Lieutenant Data", new ImageIcon(getClass().getResource("/projectInterface/fighters/lieutenant data.jpg")));
+    fighterIcons.put("Vice Admiral Janeway", new ImageIcon(getClass().getResource("/projectInterface/fighters/vice admiral janeway.jpg")));
+    fighterIcons.put("Dr. McCoy", new ImageIcon(getClass().getResource("/projectInterface/fighters/dr. mccoy.jpg")));
+    fighterIcons.put("Commander Sisko", new ImageIcon(getClass().getResource("/projectInterface/fighters/commander sisko.jpg")));
+    fighterIcons.put("Fleet Captain Pike", new ImageIcon(getClass().getResource("/projectInterface/fighters/fleet captain pike.jpg")));
+    fighterIcons.put("Chief Engineer La Forge", new ImageIcon(getClass().getResource("/projectInterface/fighters/chief engineer la forge.jpg")));
+}
+    
+     public ImageIcon getFighterIcon(String fighterName) {
+        return fighterIcons.get(fighterName);
+    }
+
+    public void setIconForLabel(JLabel label, String fighterName) {
+        ImageIcon icon = fighterIcons.get(fighterName);
+        if (icon != null) {
+            label.setIcon(icon);
+        } else {
+            label.setIcon(null); // Handle missing images gracefully
+        }
     }
 }

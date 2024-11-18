@@ -4,14 +4,18 @@
  */
 package auxClasses;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import projectClasses.Administrator;
 import projectClasses.Processor;
+import projectInterface.Init;
 
 /**
  *
@@ -22,16 +26,17 @@ public class Hilo extends Thread{
     private float delay;
     private Semaphore sema;
     private boolean killSwitch;
+    private Init init;
     private Administrator admin;
     private Processor proc;
-    private final JLabel jLabel3;
-    private final JLabel jLabel4;
+//    private final JLabel jLabel3;
+//    private final JLabel jLabel4;
     private final JTextField winnersL;
     private final JTextField winnersR;
-    private final JTextField nameL;
-    private final JTextField nameR;
-    private final JTextField idL;
-    private final JTextField idR;
+//    private final JTextField nameL;
+//    private final JTextField nameR;
+//    private final JTextField idL;
+//    private final JTextField idR;
     private final JTextField battleStatus1;
     private final JTextField battleStatus2;
     private final JTextArea leftHighQ;
@@ -42,24 +47,26 @@ public class Hilo extends Thread{
     private final JTextArea rightMidQ;
     private final JTextArea rightLowQ;
     private final JTextArea rightAuxQ;
+    private final JSpinner spinner;
     
     
-    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR,
+    public Hilo (int delay, Administrator admin, Processor proc, Init init, JTextField winnersL, JTextField winnersR,
             JTextField battleStatus1, JTextField battleStatus2, JTextArea leftHighQ, JTextArea leftMidQ, JTextArea leftLowQ, JTextArea leftAuxQ, JTextArea rightHighQ, JTextArea rightMidQ,
-            JTextArea rightLowQ, JTextArea rightAuxQ){
+            JTextArea rightLowQ, JTextArea rightAuxQ, JSpinner spinner){
         this.delay = delay * 500;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
         this.admin = admin;
         this.proc = proc;
-        this.jLabel3 = jLabel3;
-        this.jLabel4 = jLabel4;
+        this.init = init;
+//        this.jLabel3 = jLabel3;
+//        this.jLabel4 = jLabel4;
         this.winnersL = winnersL;
         this.winnersR = winnersR;
-        this.nameL = nameL;
-        this.nameR = nameR;
-        this.idL = idL;
-        this.idR = idR;
+//        this.nameL = nameL;
+//        this.nameR = nameR;
+//        this.idL = idL;
+//        this.idR = idR;
         this.battleStatus1 = battleStatus1;
         this.battleStatus2 = battleStatus2;
         this.leftHighQ = leftHighQ;
@@ -70,6 +77,7 @@ public class Hilo extends Thread{
         this.rightMidQ = rightMidQ;
         this.rightLowQ = rightLowQ;
         this.rightAuxQ = rightAuxQ;
+        this.spinner = spinner;
     }
     public float getDelay() {
         return delay;
@@ -104,7 +112,7 @@ public class Hilo extends Thread{
                 
                 admin.adminRun();
                 
-                updateFighterImages();
+                init.updateFighterImages();
                 
                 String fightStatus1 = proc.getStatusMain();
                 SwingUtilities.invokeLater(() -> {
@@ -112,9 +120,13 @@ public class Hilo extends Thread{
                 });
                 
                 String fightStatus2 = proc.getStatusAux();
+                sleep(3000);
                 SwingUtilities.invokeLater(() -> {
                 battleStatus2.setText(fightStatus2);
                 });
+                
+                Thread.sleep(3000); // Another delay of 1 second
+                SwingUtilities.invokeLater(() -> battleStatus2.setText(""));
                 
                 Queue leftHigh = admin.getQueueHighLeft();
                 String queue1 = admin.formatQueueData(leftHigh);
@@ -147,6 +159,9 @@ public class Hilo extends Thread{
                 Queue rightAux = admin.getQueueAuxRight();
                 String queue8 = admin.formatQueueData(rightAux);
                 SwingUtilities.invokeLater(() -> rightAuxQ.setText(queue8));
+                
+                int spinnerValue = (int) spinner.getValue();
+                int delay = (21 - spinnerValue) * 50;
                        
                 sleep((long) (delay));   
                 
@@ -170,13 +185,16 @@ public class Hilo extends Thread{
         }
     }
     
-    private void updateFighterImages(){
+    /*private void updateFighterImages(){
         
         if (admin.getActiveFighterL() != null && admin.getActiveFighterR() != null){
             String fighterLName = admin.getActiveFighterL().getName();
             String fighterRName = admin.getActiveFighterR().getName();
             int fighterLId = admin.getActiveFighterL().getId();
             int fighterRId = admin.getActiveFighterR().getId();
+            System.out.println("FighterL: " + admin.getActiveFighterL().getName());
+            System.out.println("FighterR: " + admin.getActiveFighterR().getName());
+
         
             SwingUtilities.invokeLater(new Runnable(){
             @Override
@@ -190,9 +208,14 @@ public class Hilo extends Thread{
             }
         });
         }
-    }
+    }*/
     
-    private void setIconForLabel(javax.swing.JLabel label, String fighterName){
+   
+
+
+
+    
+    /*private void setIconForLabel(javax.swing.JLabel label, String fighterName){
         String imagePath;
         
         switch (fighterName){
@@ -275,7 +298,7 @@ public class Hilo extends Thread{
             label.setText("No image for: " + fighterName);
             label.setIcon(null);
         }
-    }
+    }*/
     
     public void updateQueueDataGUI(Queue queue, JTextArea textArea) {
     String queueData = admin.formatQueueData(queue);
