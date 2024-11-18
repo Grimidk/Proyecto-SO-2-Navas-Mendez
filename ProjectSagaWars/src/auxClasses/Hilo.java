@@ -100,21 +100,8 @@ public class Hilo extends Thread{
                 sema.acquire();
                 
                 admin.adminRun();
+                
                 updateFighterImages();
-                sleep((long) (delay));              
-                
-                sema.release();
-                sleep((long) (delay));
-                
-                int countL = proc.getWinnersL().size();
-                SwingUtilities.invokeLater(() -> {
-                winnersL.setText(String.valueOf(countL));
-                });
-                
-                int countR = proc.getWinnersR().size();
-                SwingUtilities.invokeLater(() -> {
-                winnersR.setText(String.valueOf(countR));
-                });
                 
                 String fightStatus = proc.getStatus();
                 SwingUtilities.invokeLater(() -> {
@@ -152,6 +139,21 @@ public class Hilo extends Thread{
                 Queue rightAux = admin.getQueueAuxRight();
                 String queue8 = admin.formatQueueData(rightAux);
                 SwingUtilities.invokeLater(() -> rightAuxQ.setText(queue8));
+                       
+                sleep((long) (delay));   
+                
+                int countL = proc.getWinnersL().size();
+                SwingUtilities.invokeLater(() -> {
+                winnersL.setText(String.valueOf(countL));
+                });
+                
+                int countR = proc.getWinnersR().size();
+                SwingUtilities.invokeLater(() -> {
+                winnersR.setText(String.valueOf(countR));
+                });
+                     
+                sema.release();
+                sleep((long) (delay));
                 
                 
             }catch (InterruptedException e){

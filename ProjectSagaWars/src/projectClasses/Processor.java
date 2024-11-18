@@ -19,7 +19,7 @@ public class Processor {
     private LinkedList winnersR;
 
     public Processor(int duration) {
-        this.status = "idle";
+        this.status = "Deciding";
         this.duration = duration;
         this.probFight = 40;
         this.probTie = 27;
@@ -85,7 +85,7 @@ public class Processor {
     }
     
     public String determinate(Fighter fighterL, Fighter fighterR){
-        status = "deciding";
+        status = "Deciding";
         String result = null;
         double rand = Math.random() * 100;
         if (rand >= this.probFight + this.probTie) {
@@ -99,7 +99,7 @@ public class Processor {
     }
     
     public String fight(Fighter fighterL, Fighter fighterR){
-        status = "battling";
+        status = "Battling";
         System.out.println("Currently fighting: " + fighterL.getName() + " Vs " + fighterR.getName());
         int qualityDiff = fighterL.getQuality() - fighterR.getQuality();
         int chance = (int) (Math.random() * 100);
@@ -156,14 +156,12 @@ public class Processor {
     }
     
     public String skip(Fighter fighterL,Fighter fighterR){
-        status = "battling";
-        System.out.println("Battle skipped");
-        return status = "skip";
+        status = "Battle Skipped";
+        return status;
     }
     
     public String tie(Fighter fighterL,Fighter fighterR){
-        status = "battling";
-        System.out.println("Battle tied");
-        return status = "tie";
+        status = "Battle Tied";
+        return status;
     }
 }

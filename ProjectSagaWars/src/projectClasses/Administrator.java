@@ -295,13 +295,13 @@ public class Administrator{
         if(activeFighterL != null && activeFighterR != null){
             System.out.println("\nAbout to fight: " + activeFighterL.getName() + " Vs. " + activeFighterR.getName());
             String result = this.processor.determinate(activeFighterL, activeFighterR);
-            if (result.equals("tie")) {
+            if (result.equals("Battle Tied")) {
                 Node nodeL = new Node(activeFighterL);
                 queueHighLeft.inqueue(nodeL);
                 Node nodeR = new Node(activeFighterR);
                 queueHighRight.inqueue(nodeR);
                 return "tie";
-            } else if (result.equals("skip")){
+            } else if (result.equals("Battle Skipped")){
                 Node nodeL = new Node(activeFighterL);
                 queueAuxLeft.inqueue(nodeL);
                 Node nodeR = new Node(activeFighterR);
@@ -409,7 +409,6 @@ public class Administrator{
     
     public void adminRun(){
         adminFight();
-//        processor.setStatus("deciding");
         if (cycleCounter%cycles == 0) {
             if (Math.random() * 100 <= probCreate) {
                 createFighters();
