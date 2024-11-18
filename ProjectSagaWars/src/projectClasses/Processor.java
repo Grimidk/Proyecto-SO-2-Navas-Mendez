@@ -158,12 +158,12 @@ public class Processor {
     public String skip(Fighter fighterL,Fighter fighterR){
         status = "battling";
         System.out.println("Battle skipped");
-        return "skip";
+        return status = "skip";
     }
     
     public String tie(Fighter fighterL,Fighter fighterR){
         status = "battling";
         System.out.println("Battle tied");
-        return "tie";
+        return status = "tie";
     }
 }

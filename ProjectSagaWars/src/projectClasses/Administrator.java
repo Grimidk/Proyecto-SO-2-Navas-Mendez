@@ -397,10 +397,11 @@ public class Administrator{
     
     public void adminRun(){
         adminFight();
-        processor.setStatus("idle");
+//        processor.setStatus("deciding");
         if (cycleCounter%cycles == 0) {
             if (Math.random() * 100 <= probCreate) {
                 createFighters();
+                System.out.println(processor.getStatus());
             }
         }
         adminQueues();

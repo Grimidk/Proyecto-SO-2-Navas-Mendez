@@ -24,7 +24,7 @@ public class Init extends javax.swing.JFrame {
     public Init() {
         initComponents();
         Administrator admin = new Administrator(new Processor(5));
-        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR);
+        hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR, this.statusField);
         hilo.start();
         
     }
@@ -101,6 +101,7 @@ public class Init extends javax.swing.JFrame {
         idR = new javax.swing.JTextField();
         FightingTitle14 = new javax.swing.JLabel();
         FightingTitle15 = new javax.swing.JLabel();
+        statusField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -273,6 +274,14 @@ public class Init extends javax.swing.JFrame {
         FightingTitle15.setText("ID:");
         jPanel1.add(FightingTitle15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 30, 30));
 
+        statusField.setColumns(10);
+        statusField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(statusField, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 460));
 
         pack();
@@ -301,6 +310,10 @@ public class Init extends javax.swing.JFrame {
     private void idLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idLActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idLActionPerformed
+
+    private void statusFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,6 +385,7 @@ public class Init extends javax.swing.JFrame {
     private javax.swing.JTextField nameL;
     private javax.swing.JTextField nameR;
     private javax.swing.JButton salir;
+    private javax.swing.JTextField statusField;
     private javax.swing.JTextField winnersL;
     private javax.swing.JTextField winnersR;
     // End of variables declaration//GEN-END:variables

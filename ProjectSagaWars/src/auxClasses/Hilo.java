@@ -31,8 +31,9 @@ public class Hilo extends Thread{
     private final JTextField nameR;
     private final JTextField idL;
     private final JTextField idR;
+    private final JTextField battleStatus;
     
-    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR){
+    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR, JTextField battleStatus){
         this.delay = delay * 500;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
@@ -46,6 +47,7 @@ public class Hilo extends Thread{
         this.nameR = nameR;
         this.idL = idL;
         this.idR = idR;
+        this.battleStatus = battleStatus;
     }
     public float getDelay() {
         return delay;
@@ -94,6 +96,11 @@ public class Hilo extends Thread{
                 int countR = proc.getWinnersR().size();
                 SwingUtilities.invokeLater(() -> {
                 winnersR.setText(String.valueOf(countR));
+                });
+                
+                String fightStatus = proc.getStatus();
+                SwingUtilities.invokeLater(() -> {
+                battleStatus.setText(fightStatus);
                 });
                 
                 
