@@ -100,12 +100,11 @@ public class Hilo extends Thread{
                 sema.acquire();
                 
                 admin.adminRun();
-                sleep((long) (delay));
+                updateFighterImages();
+                sleep((long) (delay));              
                 
                 sema.release();
                 sleep((long) (delay));
-                
-                updateFighterImages();
                 
                 int countL = proc.getWinnersL().size();
                 SwingUtilities.invokeLater(() -> {

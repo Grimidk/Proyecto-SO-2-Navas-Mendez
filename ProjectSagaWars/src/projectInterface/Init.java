@@ -15,15 +15,14 @@ import javax.swing.JTextField;
  * @author juanmendezl
  */
 public class Init extends javax.swing.JFrame {
-    private Processor processor;
-    private Hilo hilo;
+    private final Hilo hilo;
 
     /**
      * Creates new form Init
      */
     public Init() {
         initComponents();
-        Administrator admin = new Administrator(new Processor(5));
+        Administrator admin = new Administrator(new Processor(10));
         hilo = new Hilo(admin.getProcessor().getDuration(),admin, admin.getProcessor(), this.jLabel3, this.jLabel4, this.winnersL, this.winnersR, this.nameL, this.nameR, this.idL, this.idR, this.statusField,
         this.leftHighQ, this.leftMidQ, this.leftLowQ, this.leftAuxQ, this.rightHighQ, this.rightMidQ, this.rightLowQ, this.rightAuxQ);
         hilo.start();
