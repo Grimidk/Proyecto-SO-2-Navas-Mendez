@@ -412,7 +412,6 @@ public class Administrator{
         if (cycleCounter%cycles == 0) {
             if (Math.random() * 100 <= probCreate) {
                 createFighters();
-                System.out.println(processor.getStatus());
             }
         }
         adminQueues();

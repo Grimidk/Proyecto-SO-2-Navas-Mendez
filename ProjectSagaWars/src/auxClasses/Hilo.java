@@ -32,7 +32,8 @@ public class Hilo extends Thread{
     private final JTextField nameR;
     private final JTextField idL;
     private final JTextField idR;
-    private final JTextField battleStatus;
+    private final JTextField battleStatus1;
+    private final JTextField battleStatus2;
     private final JTextArea leftHighQ;
     private final JTextArea leftMidQ;
     private final JTextArea leftLowQ;
@@ -43,8 +44,9 @@ public class Hilo extends Thread{
     private final JTextArea rightAuxQ;
     
     
-    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR, JTextField battleStatus,
-            JTextArea leftHighQ, JTextArea leftMidQ, JTextArea leftLowQ, JTextArea leftAuxQ, JTextArea rightHighQ, JTextArea rightMidQ, JTextArea rightLowQ, JTextArea rightAuxQ){
+    public Hilo (int delay, Administrator admin, Processor proc, JLabel jLabel3, JLabel jLabel4, JTextField winnersL, JTextField winnersR, JTextField nameL, JTextField nameR, JTextField idL, JTextField idR,
+            JTextField battleStatus1, JTextField battleStatus2, JTextArea leftHighQ, JTextArea leftMidQ, JTextArea leftLowQ, JTextArea leftAuxQ, JTextArea rightHighQ, JTextArea rightMidQ,
+            JTextArea rightLowQ, JTextArea rightAuxQ){
         this.delay = delay * 500;
         this.sema = new Semaphore(1);
         this.killSwitch = false;
@@ -58,7 +60,8 @@ public class Hilo extends Thread{
         this.nameR = nameR;
         this.idL = idL;
         this.idR = idR;
-        this.battleStatus = battleStatus;
+        this.battleStatus1 = battleStatus1;
+        this.battleStatus2 = battleStatus2;
         this.leftHighQ = leftHighQ;
         this.leftMidQ = leftMidQ;
         this.leftLowQ = leftLowQ;
@@ -103,9 +106,14 @@ public class Hilo extends Thread{
                 
                 updateFighterImages();
                 
-                String fightStatus = proc.getStatus();
+                String fightStatus1 = proc.getStatusMain();
                 SwingUtilities.invokeLater(() -> {
-                battleStatus.setText(fightStatus);
+                battleStatus1.setText(fightStatus1);
+                });
+                
+                String fightStatus2 = proc.getStatusAux();
+                SwingUtilities.invokeLater(() -> {
+                battleStatus2.setText(fightStatus2);
                 });
                 
                 Queue leftHigh = admin.getQueueHighLeft();

@@ -10,7 +10,8 @@ import auxClasses.LinkedList;
  * @author juanmendezl
  */
 public class Processor {
-    private String status;
+    private String statusMain;
+    private String statusAux;
     private int duration;
     private int probFight;
     private int probTie;
@@ -19,7 +20,8 @@ public class Processor {
     private LinkedList winnersR;
 
     public Processor(int duration) {
-        this.status = "Deciding";
+        this.statusMain = "Deciding";
+        this.statusAux = "Empty";
         this.duration = duration;
         this.probFight = 40;
         this.probTie = 27;
@@ -28,12 +30,20 @@ public class Processor {
         this.winnersR = new LinkedList();
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusMain() {
+        return statusMain;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusMain(String statusMain) {
+        this.statusMain = statusMain;
+    }
+
+    public String getStatusAux() {
+        return statusAux;
+    }
+
+    public void setStatusAux(String statusAux) {
+        this.statusAux = statusAux;
     }
 
     public int getDuration() {
@@ -85,7 +95,7 @@ public class Processor {
     }
     
     public String determinate(Fighter fighterL, Fighter fighterR){
-        status = "Deciding";
+        statusMain = "Deciding";
         String result = null;
         double rand = Math.random() * 100;
         if (rand >= this.probFight + this.probTie) {
@@ -99,7 +109,7 @@ public class Processor {
     }
     
     public String fight(Fighter fighterL, Fighter fighterR){
-        status = "Battling";
+        statusMain = "Battling";
         System.out.println("Currently fighting: " + fighterL.getName() + " Vs " + fighterR.getName());
         int qualityDiff = fighterL.getQuality() - fighterR.getQuality();
         int chance = (int) (Math.random() * 100);
@@ -107,61 +117,75 @@ public class Processor {
             if (chance <= 90){
                 this.winnersL.addLast(fighterL);
                 System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+                statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
                 System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+                statusAux = "Victory Right";
                 return "right";}
             
         } else if (qualityDiff == 1) {
              if (chance <= 70){
                 this.winnersL.addLast(fighterL);
                 System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+                statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
                 System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+                statusAux = "Victory Right";
                 return "right";}
              
         } else if (qualityDiff == -1) {
              if (chance <= 30){
                 this.winnersL.addLast(fighterL);
                 System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+                statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
                 System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+                statusAux = "Victory Right";
                 return "right";}
              
         } else if (qualityDiff == -2) {
              if (chance <= 10){
                 this.winnersL.addLast(fighterL);
                 System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+                statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
                 System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+                statusAux = "Victory Right";
                 return "right";}
              
         } else {
              if (chance <= 50){
                 this.winnersL.addLast(fighterL);
                 System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+                statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
-                 System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+                statusAux = "Victory Right";
                 return "right";}
         }
     }
     
     public String skip(Fighter fighterL,Fighter fighterR){
-        status = "Battle Skipped";
-        return status;
+        statusMain = "Battling";
+        statusAux = "Battle Skipped";
+        System.out.println("Battle Skipped");
+        return statusAux;
     }
     
     public String tie(Fighter fighterL,Fighter fighterR){
-        status = "Battle Tied";
-        return status;
+        statusMain = "Battling";
+        statusAux = "Battle Tied";
+        System.out.println("Battle Tied");
+        return statusAux;
     }
 }
