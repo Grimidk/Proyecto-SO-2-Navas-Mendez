@@ -245,21 +245,48 @@ public class Administrator{
     
     public void initFighters() {
         for (int i = 0; i < 10; i++) {
-            this.createFighters();
+            if (Math.random() * 100 >= probCreate - 80) {
+                this.createFighters();
+            }
+        }
+    }
+    public void queueCorrector(Queue queue){
+        if (queue.isEmpty() && queue.getSize() > 0) {
+            queue.empty();
         }
     }
     
     public String adminFight() {
         
+        queueCorrector(queueAuxLeft);
+        queueCorrector(queueLowLeft);
+        queueCorrector(queueMidLeft);
+        queueCorrector(queueHighLeft);
+        queueCorrector(queueAuxRight);
+        queueCorrector(queueLowRight);
+        queueCorrector(queueMidRight);
+        queueCorrector(queueHighRight);
         System.out.println("\n");
-        System.out.println("AL" + queueAuxLeft.getSize());
-        System.out.println("LL" + queueLowLeft.getSize());
-        System.out.println("ML" + queueMidLeft.getSize());
-        System.out.println("HL" + queueHighLeft.getSize());
-        System.out.println("AR" + queueAuxRight.getSize());
-        System.out.println("LR" + queueLowRight.getSize());
-        System.out.println("MR" + queueMidRight.getSize());
-        System.out.println("HR" + queueHighRight.getSize());
+        System.out.println("AL " + queueAuxLeft.getSize() + " " + queueAuxLeft.isEmpty() + "H:" + queueAuxLeft.getFirst() + "T:" + queueAuxLeft.getLast());
+        System.out.println("LL " + queueLowLeft.getSize() + " " + queueLowLeft.isEmpty() + "H:" + queueLowLeft.getFirst() + "T:" + queueLowLeft.getLast());
+        System.out.println("ML " + queueMidLeft.getSize() + " " + queueMidLeft.isEmpty() + "H:" + queueMidLeft.getFirst() + "T:" + queueMidLeft.getLast());
+        System.out.println("HL " + queueHighLeft.getSize() + " " + queueHighLeft.isEmpty() + "H:" + queueHighLeft.getFirst() + "T:" + queueHighLeft.getLast());
+        System.out.println("AR " + queueAuxRight.getSize() + " " + queueAuxRight.isEmpty() + "H:" + queueAuxRight.getFirst() + "T:" + queueAuxRight.getLast());
+        System.out.println("LR " + queueLowRight.getSize() + " " + queueLowRight.isEmpty() + "H:" + queueLowRight.getFirst() + "T:" + queueLowRight.getLast());
+        System.out.println("MR " + queueMidRight.getSize() + " " + queueMidRight.isEmpty() + "H:" + queueMidRight.getFirst() + "T:" + queueMidRight.getLast());
+        System.out.println("HR " + queueHighRight.getSize() + " " + queueHighRight.isEmpty() + "H:" + queueHighRight.getFirst() + "T:" + queueHighRight.getLast());
+        
+        if (queueAuxLeft.getSize() > 10 || queueLowLeft.getSize() > 10 || queueMidLeft.getSize() > 10 || queueHighLeft.getSize() > 10 || 
+            queueAuxRight.getSize() > 10 || queueLowRight.getSize() > 10 || queueMidRight.getSize() > 10 || queueHighRight.getSize() > 10) {
+            System.out.println("Overflow Activated");
+            probCreate += 5;
+        }
+        
+        if (queueAuxLeft.getSize() < 4 && queueLowLeft.getSize() < 4 && queueMidLeft.getSize() < 4 && queueHighLeft.getSize() < 4 && 
+            queueAuxRight.getSize() < 4 && queueLowRight.getSize() < 4 && queueMidRight.getSize() < 4 && queueHighRight.getSize() < 4) {
+            System.out.println("Overflow Deactivated");
+            probCreate = 80;
+        }
         
         if (Math.random() * 100 <= probReinforce && !queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
             System.out.println("Assigned at aux 1");
@@ -292,6 +319,7 @@ public class Administrator{
             activeFighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else {
+            System.out.println("Not assigned at all");
             this.initFighters();
             this.adminFight();
             return "skip";
@@ -422,7 +450,7 @@ public class Administrator{
     public void adminRun(){
         adminFight();
         if (cycleCounter%cycles == 0) {
-            if (Math.random() * 100 <= probCreate) {
+            if (Math.random() * 100 >= probCreate - 60) {
                 createFighters();
             }
         }

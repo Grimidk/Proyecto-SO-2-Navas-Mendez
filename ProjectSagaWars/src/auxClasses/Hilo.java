@@ -120,12 +120,12 @@ public class Hilo extends Thread{
                 });
                 
                 String fightStatus2 = proc.getStatusAux();
-                sleep(3000);
+                sleep((long) (delay));
                 SwingUtilities.invokeLater(() -> {
                 battleStatus2.setText(fightStatus2);
                 });
                 
-                Thread.sleep(3000);
+                sleep((long) (delay));
                 SwingUtilities.invokeLater(() -> battleStatus2.setText(""));
                 SwingUtilities.invokeLater(() -> battleStatus1.setText("Deciding"));
                 
@@ -162,7 +162,7 @@ public class Hilo extends Thread{
                 SwingUtilities.invokeLater(() -> rightAuxQ.setText(queue8));
                 
                 int spinnerValue = (int) spinner.getValue();
-                int delay = (21 - spinnerValue) * 50;
+                delay = (21 - spinnerValue) * 50;
                        
                 sleep((long) (delay));   
                 

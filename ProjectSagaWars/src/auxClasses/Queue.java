@@ -36,18 +36,23 @@ public class Queue {
     }
     
     public void inqueue(Node n){
-        if (isEmpty()){
-            this.head = n;
-            this.tail = n;
+        if (n != null) {
+            if (isEmpty()){
+                this.head = n;
+                this.tail = n;
+            } else {
+                this.tail.setNext(n);
+                this.tail = n;
+            }
+            size++;
         } else {
-            this.tail.setNext(n);
-            this.tail = n;
+            System.out.println("##############\nINSERTING NULL NODE\n##############");
         }
-        size++;
     }
     
     public void dequeue(){
         if (isEmpty()){
+            System.out.println("##############\nALREADY EMPTY\n##############");
         } else if (size == 1) {
             this.empty();
         } else {     
@@ -83,6 +88,10 @@ public class Queue {
     
     public Node getFirst(){
         return head;
+    }
+    
+    public Node getLast(){
+        return tail;
     }
     
     public int getSize(){
