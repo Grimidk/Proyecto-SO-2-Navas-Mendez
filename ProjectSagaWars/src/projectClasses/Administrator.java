@@ -346,19 +346,19 @@ public class Administrator{
         Fighter upAuxL = checkQueues(queueAuxLeft);
         if (upAuxL != null) {
             upAuxL.evolve();
-            queueAuxLeft.dequeue();
+            queueAuxLeft.getBetween(upAuxL);
             queueLowLeft.inqueue(new Node(upAuxL));
         }
         Fighter upLowL = checkQueues(queueLowLeft);
         if (upLowL != null) {
             upLowL.evolve();
-            queueLowLeft.dequeue();
+            queueLowLeft.getBetween(upLowL);
             queueMidLeft.inqueue(new Node(upLowL));
         }
         Fighter upMidL = checkQueues(queueMidLeft);
         if (upMidL != null) {
             upMidL.evolve();
-            queueMidLeft.dequeue();
+            queueMidLeft.getBetween(upMidL);
             queueHighLeft.inqueue(new Node (upMidL));
         }
         Fighter upHighL = checkQueues(queueHighLeft);
@@ -369,19 +369,19 @@ public class Administrator{
         Fighter upAuxR = checkQueues(queueAuxRight);
         if (upAuxR != null) {
             upAuxR.evolve();
-            queueAuxRight.dequeue();
+            queueAuxRight.getBetween(upAuxR);
             queueLowRight.inqueue(new Node(upAuxR));
         }
         Fighter upLowR = checkQueues(queueLowRight);
         if (upLowR != null) {
             upLowR.evolve();
-            queueLowRight.dequeue();
+            queueLowRight.getBetween(upLowR);
             queueMidRight.inqueue(new Node(upLowR));
         }
         Fighter upMidR = checkQueues(queueMidRight);
         if (upMidR != null) {
             upMidR.evolve();
-            queueMidRight.dequeue();
+            queueMidRight.getBetween(upMidR);
             queueHighRight.inqueue(new Node (upMidR));
         }
         Fighter upHighR = checkQueues(queueHighRight);

@@ -5,6 +5,8 @@
  */
 package auxClasses;
 
+import projectClasses.Fighter;
+
 /**
  *
  * @author svet
@@ -53,6 +55,27 @@ public class Queue {
             size--;
         }
     }  
+    
+    public void getBetween(Fighter fighter){
+        if (!isEmpty()){
+            Node node = head;
+            while (node.getNext() != null && node.getValue() != fighter) {
+                node = node.getNext();
+            }
+            if (node.getValue() == fighter){
+                if(node == head){
+                    head = node.getNext();
+                    node.getNext().setPrev(null);
+                } else if(node == tail){
+                    tail = node.getPrev();
+                    node.getPrev().setNext(null);
+                }
+                node.getPrev().setNext(node.getNext());
+                node.getNext().setPrev(node.getPrev());
+                size--;
+            }
+        }
+    }
     
     public Node getFirst(){
         return head;

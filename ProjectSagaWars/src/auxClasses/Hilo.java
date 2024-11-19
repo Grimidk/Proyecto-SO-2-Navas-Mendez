@@ -125,8 +125,9 @@ public class Hilo extends Thread{
                 battleStatus2.setText(fightStatus2);
                 });
                 
-                Thread.sleep(3000); // Another delay of 1 second
+                Thread.sleep(3000);
                 SwingUtilities.invokeLater(() -> battleStatus2.setText(""));
+                SwingUtilities.invokeLater(() -> battleStatus1.setText("Deciding"));
                 
                 Queue leftHigh = admin.getQueueHighLeft();
                 String queue1 = admin.formatQueueData(leftHigh);
