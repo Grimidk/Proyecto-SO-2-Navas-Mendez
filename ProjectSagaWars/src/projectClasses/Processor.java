@@ -110,66 +110,66 @@ public class Processor {
     
     public String fight(Fighter fighterL, Fighter fighterR){
         statusMain = "Battling";
-        System.out.println("Currently fighting: " + fighterL.getName() + " Vs " + fighterR.getName());
+//        System.out.println("Currently fighting: " + fighterL.getName() + " Vs " + fighterR.getName());
         int qualityDiff = fighterL.getQuality() - fighterR.getQuality();
         int chance = (int) (Math.random() * 100);
         if (qualityDiff == 2) {
             if (chance <= 90){
                 this.winnersL.addLast(fighterL);
-                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+//                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
                 statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
-                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+//                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
                 statusAux = "Victory Right";
                 return "right";}
             
         } else if (qualityDiff == 1) {
              if (chance <= 70){
                 this.winnersL.addLast(fighterL);
-                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+//                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
                 statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
-                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+//                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
                 statusAux = "Victory Right";
                 return "right";}
              
         } else if (qualityDiff == -1) {
              if (chance <= 30){
                 this.winnersL.addLast(fighterL);
-                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+//                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
                 statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
-                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+//                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
                 statusAux = "Victory Right";
                 return "right";}
              
         } else if (qualityDiff == -2) {
              if (chance <= 10){
                 this.winnersL.addLast(fighterL);
-                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+//                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
                 statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
-                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+//                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
                 statusAux = "Victory Right";
                 return "right";}
              
         } else {
              if (chance <= 50){
                 this.winnersL.addLast(fighterL);
-                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
+//                System.out.println("Battle won by: " + fighterL.getName() + " " + fighterL.getId());
                 statusAux = "Victory Left";
                 return "left";
             } else {
                 this.winnersR.addLast(fighterR);
-                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
+//                System.out.println("Battle won by: " + fighterR.getName() + " " + fighterR.getId());
                 statusAux = "Victory Right";
                 return "right";}
         }
@@ -178,14 +178,14 @@ public class Processor {
     public String skip(Fighter fighterL,Fighter fighterR){
         statusMain = "Battling";
         statusAux = "Battle Skipped";
-        System.out.println("Battle Skipped");
+//        System.out.println("Battle Skipped");
         return statusAux;
     }
     
     public String tie(Fighter fighterL,Fighter fighterR){
         statusMain = "Battling";
         statusAux = "Battle Tied";
-        System.out.println("Battle Tied");
+//        System.out.println("Battle Tied");
         return statusAux;
     }
 }

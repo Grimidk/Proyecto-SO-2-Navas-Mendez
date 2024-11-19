@@ -46,13 +46,13 @@ public class Queue {
             }
             size++;
         } else {
-            System.out.println("##############\nINSERTING NULL NODE\n##############");
+//            System.out.println("##############\nINSERTING NULL NODE\n##############");
         }
     }
     
     public void dequeue(){
         if (isEmpty()){
-            System.out.println("##############\nALREADY EMPTY\n##############");
+//            System.out.println("##############\nALREADY EMPTY\n##############");
         } else if (size == 1) {
             this.empty();
         } else {     

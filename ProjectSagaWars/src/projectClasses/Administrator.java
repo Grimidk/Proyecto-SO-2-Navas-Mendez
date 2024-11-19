@@ -225,10 +225,10 @@ public class Administrator{
     public void createFighters() {
         int count = this.fighterCounter;
         Fighter fighterL = new Fighter(this.processor.getDuration(),count, sagaL, charactersL[(int) (Math.random() * 10)]);
-        System.out.println("Created: " + fighterL.getName() + " with ID: " + fighterL.getId());
+//        System.out.println("Created: " + fighterL.getName() + " with ID: " + fighterL.getId());
         Node nodeL = new Node(fighterL);
         Fighter fighterR = new Fighter(this.processor.getDuration(),(count + 1), sagaR, charactersR[(int) (Math.random() * 10)]);
-        System.out.println("Created: " + fighterR.getName() + " with ID: " + fighterR.getId());
+//        System.out.println("Created: " + fighterR.getName() + " with ID: " + fighterR.getId());
         Node nodeR = new Node(fighterR);
         switch (fighterL.getQuality()) {
             case 3 -> this.queueHighLeft.inqueue(nodeL);
@@ -266,60 +266,60 @@ public class Administrator{
         queueCorrector(queueLowRight);
         queueCorrector(queueMidRight);
         queueCorrector(queueHighRight);
-        System.out.println("\n");
-        System.out.println("AL " + queueAuxLeft.getSize() + " " + queueAuxLeft.isEmpty() + "H:" + queueAuxLeft.getFirst() + "T:" + queueAuxLeft.getLast());
-        System.out.println("LL " + queueLowLeft.getSize() + " " + queueLowLeft.isEmpty() + "H:" + queueLowLeft.getFirst() + "T:" + queueLowLeft.getLast());
-        System.out.println("ML " + queueMidLeft.getSize() + " " + queueMidLeft.isEmpty() + "H:" + queueMidLeft.getFirst() + "T:" + queueMidLeft.getLast());
-        System.out.println("HL " + queueHighLeft.getSize() + " " + queueHighLeft.isEmpty() + "H:" + queueHighLeft.getFirst() + "T:" + queueHighLeft.getLast());
-        System.out.println("AR " + queueAuxRight.getSize() + " " + queueAuxRight.isEmpty() + "H:" + queueAuxRight.getFirst() + "T:" + queueAuxRight.getLast());
-        System.out.println("LR " + queueLowRight.getSize() + " " + queueLowRight.isEmpty() + "H:" + queueLowRight.getFirst() + "T:" + queueLowRight.getLast());
-        System.out.println("MR " + queueMidRight.getSize() + " " + queueMidRight.isEmpty() + "H:" + queueMidRight.getFirst() + "T:" + queueMidRight.getLast());
-        System.out.println("HR " + queueHighRight.getSize() + " " + queueHighRight.isEmpty() + "H:" + queueHighRight.getFirst() + "T:" + queueHighRight.getLast());
-        
+//        System.out.println("\n");
+//        System.out.println("AL " + queueAuxLeft.getSize() + " " + queueAuxLeft.isEmpty() + "H:" + queueAuxLeft.getFirst() + "T:" + queueAuxLeft.getLast());
+//        System.out.println("LL " + queueLowLeft.getSize() + " " + queueLowLeft.isEmpty() + "H:" + queueLowLeft.getFirst() + "T:" + queueLowLeft.getLast());
+//        System.out.println("ML " + queueMidLeft.getSize() + " " + queueMidLeft.isEmpty() + "H:" + queueMidLeft.getFirst() + "T:" + queueMidLeft.getLast());
+//        System.out.println("HL " + queueHighLeft.getSize() + " " + queueHighLeft.isEmpty() + "H:" + queueHighLeft.getFirst() + "T:" + queueHighLeft.getLast());
+//        System.out.println("AR " + queueAuxRight.getSize() + " " + queueAuxRight.isEmpty() + "H:" + queueAuxRight.getFirst() + "T:" + queueAuxRight.getLast());
+//        System.out.println("LR " + queueLowRight.getSize() + " " + queueLowRight.isEmpty() + "H:" + queueLowRight.getFirst() + "T:" + queueLowRight.getLast());
+//        System.out.println("MR " + queueMidRight.getSize() + " " + queueMidRight.isEmpty() + "H:" + queueMidRight.getFirst() + "T:" + queueMidRight.getLast());
+//        System.out.println("HR " + queueHighRight.getSize() + " " + queueHighRight.isEmpty() + "H:" + queueHighRight.getFirst() + "T:" + queueHighRight.getLast());
+//        
         if (queueAuxLeft.getSize() > 10 || queueLowLeft.getSize() > 10 || queueMidLeft.getSize() > 10 || queueHighLeft.getSize() > 10 || 
             queueAuxRight.getSize() > 10 || queueLowRight.getSize() > 10 || queueMidRight.getSize() > 10 || queueHighRight.getSize() > 10) {
-            System.out.println("Overflow Activated");
+//            System.out.println("Overflow Activated");
             probCreate += 5;
         }
         
         if (queueAuxLeft.getSize() < 4 && queueLowLeft.getSize() < 4 && queueMidLeft.getSize() < 4 && queueHighLeft.getSize() < 4 && 
             queueAuxRight.getSize() < 4 && queueLowRight.getSize() < 4 && queueMidRight.getSize() < 4 && queueHighRight.getSize() < 4) {
-            System.out.println("Overflow Deactivated");
+//            System.out.println("Overflow Deactivated");
             probCreate = 80;
         }
         
         if (Math.random() * 100 <= probReinforce && !queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
-            System.out.println("Assigned at aux 1");
+//            System.out.println("Assigned at aux 1");
             activeFighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
             activeFighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else if (!queueHighLeft.isEmpty() && !queueHighRight.isEmpty()){
-            System.out.println("Assigned at high");
+//            System.out.println("Assigned at high");
             activeFighterL = queueHighLeft.getFirst().getValue();
             queueHighLeft.dequeue();
             activeFighterR = queueHighRight.getFirst().getValue();
             queueHighRight.dequeue();
         } else if (!queueMidLeft.isEmpty() && !queueMidRight.isEmpty()){
-            System.out.println("Assigned at mid");
+//            System.out.println("Assigned at mid");
             activeFighterL = queueMidLeft.getFirst().getValue();
             queueMidLeft.dequeue();
             activeFighterR = queueMidRight.getFirst().getValue();
             queueMidRight.dequeue();
         } else if (!queueLowLeft.isEmpty() && !queueLowRight.isEmpty()){
-            System.out.println("Assigned at low");
+//            System.out.println("Assigned at low");
             activeFighterL = queueLowLeft.getFirst().getValue();
             queueLowLeft.dequeue();
             activeFighterR = queueLowRight.getFirst().getValue();
             queueLowRight.dequeue();
         } else if(!queueAuxLeft.isEmpty() && !queueAuxRight.isEmpty()){
-            System.out.println("Assigned at aux 2");
+//            System.out.println("Assigned at aux 2");
             activeFighterL = queueAuxLeft.getFirst().getValue();
             queueAuxLeft.dequeue();
             activeFighterR = queueAuxRight.getFirst().getValue();
             queueAuxRight.dequeue();
         } else {
-            System.out.println("Not assigned at all");
+//            System.out.println("Not assigned at all");
             this.initFighters();
             this.adminFight();
             return "skip";
@@ -327,7 +327,7 @@ public class Administrator{
         
    
         if(activeFighterL != null && activeFighterR != null){
-            System.out.println("\nAbout to fight: " + activeFighterL.getName() + " Vs. " + activeFighterR.getName());
+//            System.out.println("\nAbout to fight: " + activeFighterL.getName() + " Vs. " + activeFighterR.getName());
             String result = this.processor.determinate(activeFighterL, activeFighterR);
             if (result.equals("Battle Tied")) {
                 Node nodeL = new Node(activeFighterL);
@@ -347,8 +347,8 @@ public class Administrator{
                 return "victory";
             }
         }
-        System.out.println("Didn't fight cause lack of fighters");
-        System.out.println("#####################################\nCRITICAL ERROR\n#####################################");
+//        System.out.println("Didn't fight cause lack of fighters");
+//        System.out.println("#####################################\nCRITICAL ERROR\n#####################################");
         return "skip";
     }
     
@@ -456,11 +456,11 @@ public class Administrator{
         }
         adminQueues();
         
-        System.out.println("\n");
-        System.out.println("Cycles: " + cycleCounter);
-        System.out.println("Total Figthers: " + fighterCounter);
-        System.out.println("Winners Left: " + processor.getWinnersL().size());
-        System.out.println("Winners Right: " + processor.getWinnersR().size());
+//        System.out.println("\n");
+//        System.out.println("Cycles: " + cycleCounter);
+//        System.out.println("Total Figthers: " + fighterCounter);
+//        System.out.println("Winners Left: " + processor.getWinnersL().size());
+//        System.out.println("Winners Right: " + processor.getWinnersR().size());
         cycleCounter += 1;
     }
     
