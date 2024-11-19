@@ -63,15 +63,19 @@ public class Queue {
                 node = node.getNext();
             }
             if (node.getValue() == fighter){
-                if(node == head){
+                if (node.getNext() == null && node.getPrev() == null){
+                    head = null;
+                    tail = null;
+                } else if(node.getNext() != null && node.getPrev() == null){
                     head = node.getNext();
                     node.getNext().setPrev(null);
-                } else if(node == tail){
+                } else if(node.getNext() == null && node.getPrev() != null){
                     tail = node.getPrev();
                     node.getPrev().setNext(null);
-                }
+                } else {
                 node.getPrev().setNext(node.getNext());
                 node.getNext().setPrev(node.getPrev());
+                }
                 size--;
             }
         }
